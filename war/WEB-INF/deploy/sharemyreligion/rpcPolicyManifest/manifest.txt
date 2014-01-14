@@ -1,2 +1,3 @@
 # Module sharemyreligion
 # RPC service class, partial path of RPC policy file
+com.atal.shareMyReligion.client.GreetingService, 544CA95B96D5CA12C6B16CA4A196CD8A.gwt.rpc
