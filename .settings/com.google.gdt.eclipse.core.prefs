@@ -1,3 +1,5 @@
 eclipse.preferences.version=1
-warSrcDir=war
-warSrcDirIsOutput=true
+jarsExcludedFromWebInfLib=
+lastWarOutDir=/home/alexis/git/appliWeb/src/main/webapp
+warSrcDir=src/main/webapp
+warSrcDirIsOutput=false
