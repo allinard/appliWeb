@@ -14,10 +14,17 @@
 
 <html>
 <head>
-    <link type="text/css" rel="stylesheet" href="/stylesheets/main.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link type="text/css" href="stylesheets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="stylesheets/bootstrap/js/bootstrap.min.js"></script>
 
 <%
     String guestbookName = request.getParameter("guestbookName");
