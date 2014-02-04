@@ -16,8 +16,5 @@
             <result name="success">/welcome.jsp</result>
             <result name="error">/login.jsp</result>
         </action>
- 		<action name="">
- 		    <result>/login.jsp</result>
-	    </action> 
 	</package>
 </struts>
