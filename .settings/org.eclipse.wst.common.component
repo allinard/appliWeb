@@ -2,6 +2,7 @@
     <wb-module deploy-name="ShareMyReligion">
         <wb-resource deploy-path="/WEB-INF/lib" source-path="/war/WEB-INF/lib"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/" source-path="/war"/>
         <property name="context-root" value="shareMyReligion"/>
         <property name="java-output-path" value="/ShareMyReligion/target/shareMyReligion-1.0-SNAPSHOT/WEB-INF/classes"/>
     </wb-module>
