@@ -1,0 +1,27 @@
+﻿<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>typeahead02a</title>
+<link href="css/bootstrap..min.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="container"> <br/>
+  <div class="span5">
+    <form class="form-inline well">
+      <label for="départements">Département :</label>
+      <input id="départements" placeholder="Entrez un département" data-provide="typeahead">
+    </form>
+  </div>
+</div>
+</body>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+$(function (){
+   var deps = ['Ain','Aisne','Allier','Alpes de-Htes','Alpes de-Htes Provence','Hautes-Alpes','Alpes-Maritimes','Ardèche','Ardennes','Ariege','Aube','Aude','Aveyron','Bouches-du-Rhône','Calvados','Cantal','Charente','Charente-Maritime','Cher','Correze','Côte d\'Or', 'Côtes d\'Armor','Creuse','Dordogne','Doubs','Drome','Eure','Eure-et-Loire','Finistère'];
+   $('#départements').typeahead({source: deps, items:3});
+});  
+</script>
+</body>
+</html>
