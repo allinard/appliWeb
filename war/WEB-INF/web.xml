@@ -15,9 +15,9 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	</filter-mapping>
 
 	<listener>
-		<listener-class>com.mkyong.listener.Struts2ListenerOnGAE</listener-class>
+		<listener-class>com.nantalertes.listener.Struts2ListenerOnGAE</listener-class>
 	</listener>
 	<welcome-file-list>
-		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>

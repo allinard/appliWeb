@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -62,8 +63,15 @@
 		</div>
 		<p>
 			<center>
+				<s:actionerror />
+				<s:form action="login.action" method="post" class="login active">
+				    <s:submit method="execute" value="Se Connecter" align="center" />
+				    <s:submit method="execute" value="Continuer" align="center"  />
+				</s:form>
+				<!-- 
 				<a href="map.html"><input type="button" class="btn btn-lg btn-success" value="Se Connecter"></a>&nbsp;&nbsp;
 				<a href="map.html"><input type="button" class="btn btn-lg btn-primary" value="Continuer"></a>
+				 -->
 				<br>
 				<br>
 				Il faut &ecirc;tre connect&eacute; pour poster une alerte.
