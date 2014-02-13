@@ -97,7 +97,7 @@ public final class TextBlock extends TemplateElement {
 		env.getOut().write(text);
 	}
 
-	public String getCanonicalForm() {
+/*	public String getCanonicalForm() {
 		String text = new String(this.text);
 		if (unparsed) {
 			return "<#noparse>" + text + "</#noparse>";
@@ -117,7 +117,7 @@ public final class TextBlock extends TemplateElement {
 		}
 		return "text block (" + s + ")";
 	}
-
+*/
 	TemplateElement postParseCleanup(boolean stripWhitespace) {
 		if (text.length == 0)
 			return this;
@@ -415,5 +415,35 @@ public final class TextBlock extends TemplateElement {
 
 	boolean isWhitespace() {
 		return text == null || trim(text).length == 0;
+	}
+
+	@Override
+	protected String dump(boolean arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	String getNodeTypeSymbol() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	int getParameterCount() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	ParameterRole getParameterRole(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	Object getParameterValue(int arg0) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

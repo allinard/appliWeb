@@ -1,20 +1,12 @@
 package com.nantalertes.action;
 
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 import com.opensymphony.xwork2.ActionSupport;
 
 public class LoginAction extends ActionSupport {
     private String username;
+    
+    //TODO replace by google authentication
     private boolean isAuthenticated = true;
     
     public String execute() {
@@ -31,4 +23,12 @@ public class LoginAction extends ActionSupport {
             return "error";
         }
     }
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
 }

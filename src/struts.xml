@@ -5,12 +5,19 @@
 
 <struts>
 
-    <package name="default" extends="struts-default" namespace="/">
-        <action name="login"
-            class="com.nantalertes.action.LoginAction">
-            <result name="success">map.jsp</result>
-            <result name="error">index.jsp</result>
-        </action>
-    </package>
+	<package name="default" extends="struts-default" namespace="/">
+		<action name="login" class="com.nantalertes.action.LoginAction">
+			<result name="success">map.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		<action name="liste" class="com.nantalertes.action.ListeAction">
+			<result name="success">liste.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		<action name="add" class="com.nantalertes.action.AddAction">
+			<result name="success">add.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+	</package>
 
 </struts>

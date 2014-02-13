@@ -2,17 +2,18 @@ package com.nantalertes.bean;
 
 import java.util.GregorianCalendar;
 
-public class AlerteBean {
+public class Alerte {
 
 	private String description;
 	private String type;
 	private String adresse;
 	private String latitude;
 	private String longitude;
-	private GregorianCalendar date;
+	private String date;
 	private String user;
+	private int id;
 
-	public AlerteBean() {
+	public Alerte() {
 
 	}
 
@@ -56,11 +57,11 @@ public class AlerteBean {
 		this.longitude = longitude;
 	}
 
-	public GregorianCalendar getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(GregorianCalendar date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
@@ -70,6 +71,14 @@ public class AlerteBean {
 
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
