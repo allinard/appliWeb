@@ -7,7 +7,7 @@
 
 	<package name="default" extends="struts-default" namespace="/">
 		<action name="login" class="com.nantalertes.action.LoginAction">
-			<result name="success">map.jsp</result>
+			<result name="success" type="redirectAction">map</result>
 			<result name="error">index.jsp</result>
 		</action>
 		<action name="liste" class="com.nantalertes.action.ListeAction">
@@ -17,6 +17,13 @@
 		<action name="add" class="com.nantalertes.action.AddAction">
 			<result name="success">add.jsp</result>
 			<result name="error">index.jsp</result>
+		</action>
+		<action name="map" class="com.nantalertes.action.MapAction">
+			<result name="success">map.jsp</result>
+			<result name="error">index.jsp</result>
+		</action>
+		<action name="delete" class="com.nantalertes.action.DeleteAction">
+			<result name="success" type="redirectAction">liste</result>
 		</action>
 	</package>
 

@@ -3,6 +3,8 @@ package com.nantalertes.dao;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
@@ -81,7 +83,7 @@ public class AlerteDAO {
 
 	public static Alerte getAlerte(Entity e) {
 		Alerte alerte = new Alerte();
-
+		alerte.setId((int) e.getKey().getId());
 		alerte.setDescription((String) e.getProperty("AlerteDescription"));
 		alerte.setType((String) e.getProperty("AlerteType"));
 		alerte.setAdresse((String) e.getProperty("AlerteAdresse"));
@@ -95,10 +97,31 @@ public class AlerteDAO {
 
 	public static List<Alerte> getAllAlertes() {
 		List<Alerte> listeAlerte = new ArrayList<Alerte>();
+		Set<Alerte> tempListe = new TreeSet<Alerte>();
 		for (Entity entity : getAllEntities()) {
-			listeAlerte.add(getAlerte(entity));
+			tempListe.add(getAlerte(entity));
 		}
+		listeAlerte.addAll(tempListe);
 		return listeAlerte;
+	}
+	
+	public static List<Alerte> getLastAlertes() {
+		List<Alerte> listeAlerte = new ArrayList<Alerte>();
+		Set<Alerte> tempListe = new TreeSet<Alerte>();
+		int i=0;
+		for (Entity entity : getAllEntities()) {
+			tempListe.add(getAlerte(entity));
+			i++;
+			if(i>5) break;
+		}
+		listeAlerte.addAll(tempListe);
+		return listeAlerte;
+	}
+
+	public static String deleteAlerteWithId(int alerteId) {
+		Key key = KeyFactory.createKey("AlerteId", alerteId);
+		Util.deleteEntity(key);
+		return "Alert deleted successfully";		
 	}
 
 }

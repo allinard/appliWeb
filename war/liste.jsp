@@ -40,7 +40,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="map.jsp" style="color:rgb(140,184,224);"><strong>Nant' Alertes</strong></a>
+          <a class="navbar-brand" href="/map.action" style="color:rgb(140,184,224);"><strong>Nant' Alertes</strong></a>
         </div>
         <div class="navbar-collapse collapse">
 		  
@@ -66,7 +66,7 @@
           <ul class="nav nav-sidebar">
             <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Liste des Alertes</strong></h4></a></li>
             <s:iterator value="listeAlertes">
-            	<li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span><s:property value="type"/> - <i><s:property value="adresse"/></i></a></li>
+            	<li><a href="/delete.action?alerteId=<s:property value="id"/>"><span style="color:#115077;" class="glyphicon glyphicon-remove-sign"></a><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span><s:property value="type"/> - <i><s:property value="adresse"/></i></a></li>
 			</s:iterator>
             <li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>Feux de Signalisation - <i>Bd Grabriel lauriol</i></a></li>
             <li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-trash">&nbsp;</span>D&eacute;ch&ecirc;ts - <i>Place Mangin</i></a></li>

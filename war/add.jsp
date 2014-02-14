@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="map.jsp" style="color:rgb(140,184,224);"><strong>Nant' Alertes</strong></a>
+          <a class="navbar-brand" href="/map.action" style="color:rgb(140,184,224);"><strong>Nant' Alertes</strong></a>
         </div>
         <div class="navbar-collapse collapse">
 		  
@@ -71,7 +71,7 @@
 			
 				<s:actionerror />
 				<s:form action="add.action" method="post" class="login active">
-					<s:select list="listeCat"/>
+					<s:select list="listeCat" name="type"/>
 					<s:textfield name="adresse" value="Adresse" size="20" />
 					<s:textfield name="description" value="Description" size="20" />
 				    <s:submit method="execute" value="Signaler" align="center"  />

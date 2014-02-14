@@ -2,7 +2,7 @@ package com.nantalertes.bean;
 
 import java.util.GregorianCalendar;
 
-public class Alerte {
+public class Alerte implements Comparable<Alerte>{
 
 	private String description;
 	private String type;
@@ -79,6 +79,11 @@ public class Alerte {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	@Override
+	public int compareTo(Alerte o) {
+		return o.getId()-this.getId();
 	}
 
 }
