@@ -11,12 +11,25 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.nantalertes.bean.Alerte;
 
+/**
+ * Classe AlerteDAO pour la persistance des alertes
+ * @author alexis
+ *
+ */
 public class AlerteDAO {
 
+	/**
+	 * ID de la prochaine alerte
+	 */
 	public static int NEXTID = 1;
 
+	/**
+	 * Methode permettant de créer ou de mettre a jour une alerte
+	 * @param l'alerte a creer ou mettre a jour
+	 */
 	public static void createOrUpdateAlerte(Alerte alerte) {
 		Entity storedAlerte = getEntity(alerte);
+		//create
 		if (storedAlerte == null) {
 			storedAlerte = new Entity("AlerteId", NEXTID);
 			NEXTID++;
@@ -28,7 +41,9 @@ public class AlerteDAO {
 			storedAlerte.setProperty("AlerteLongitude", alerte.getLongitude());
 			storedAlerte.setProperty("AlerteDate", alerte.getDate());
 			storedAlerte.setProperty("AlerteUser", alerte.getUser());
-		} else {
+		}
+		//update
+		else {
 			storedAlerte.setProperty("AlerteDescription",
 					alerte.getDescription());
 			storedAlerte.setProperty("AlerteType", alerte.getType());
@@ -38,6 +53,7 @@ public class AlerteDAO {
 			storedAlerte.setProperty("AlerteDate", alerte.getDate());
 			storedAlerte.setProperty("AlerteUser", alerte.getUser());
 		}
+		//persist
 		Util.persistEntity(storedAlerte);
 	}
 
@@ -95,6 +111,10 @@ public class AlerteDAO {
 		return alerte;
 	}
 
+	/**
+	 * Methode retournant la liste de toutes les alertes en cours
+	 * @return la liste de toutes les alertes en cours
+	 */
 	public static List<Alerte> getAllAlertes() {
 		List<Alerte> listeAlerte = new ArrayList<Alerte>();
 		Set<Alerte> tempListe = new TreeSet<Alerte>();
@@ -105,6 +125,10 @@ public class AlerteDAO {
 		return listeAlerte;
 	}
 	
+	/**
+	 * Méthode retournant les X dernières alertes postées
+	 * @return les X dernières alertes postées
+	 */
 	public static List<Alerte> getLastAlertes() {
 		List<Alerte> listeAlerte = new ArrayList<Alerte>();
 		Set<Alerte> tempListe = new TreeSet<Alerte>();
@@ -118,6 +142,11 @@ public class AlerteDAO {
 		return listeAlerte;
 	}
 
+	/**
+	 * Méthode pour la suppression d'une alerte
+	 * @param alerteId l'ID de l'alerte a supprimer
+	 * @return Success ou non
+	 */
 	public static String deleteAlerteWithId(int alerteId) {
 		Key key = KeyFactory.createKey("AlerteId", alerteId);
 		Util.deleteEntity(key);

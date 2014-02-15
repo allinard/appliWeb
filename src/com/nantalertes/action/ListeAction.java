@@ -5,12 +5,20 @@ import com.nantalertes.bean.Alerte;
 import com.nantalertes.dao.AlerteDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Action Struts pour lister les alertes
+ * @author alexis
+ *
+ */
 public class ListeAction extends ActionSupport {
     private List<Alerte> listeAlertes;
     
     //TODO replace by google authentication
     private boolean isAuthenticated = true;
     
+    /**
+     * Méthode execute
+     */
     public String execute() {
  
         if(isAuthenticated)

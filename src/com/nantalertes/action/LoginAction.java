@@ -3,12 +3,22 @@ package com.nantalertes.action;
 
 import com.opensymphony.xwork2.ActionSupport;
 
+
+/**
+ * Action Struts pour l'authentification
+ * @author alexis
+ *
+ */
 public class LoginAction extends ActionSupport {
     private String username;
     
     //TODO replace by google authentication
     private boolean isAuthenticated = true;
     
+    
+    /**
+     * Méthode execute
+     */
     public String execute() {
  
         if(isAuthenticated)

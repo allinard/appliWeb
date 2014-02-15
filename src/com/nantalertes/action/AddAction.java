@@ -7,6 +7,11 @@ import com.nantalertes.bean.Alerte;
 import com.nantalertes.dao.AlerteDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Action Struts pour l'ajout d'une alerte
+ * @author alexis
+ *
+ */
 public class AddAction extends ActionSupport {
     private List<Alerte> listeAlertes;
     private List<String> listeCat = Constants.getListeCategories();
@@ -20,6 +25,10 @@ public class AddAction extends ActionSupport {
 	private String latitude;
 	private String longitude;
     
+	
+	/**
+	 * Méthode execute
+	 */
     public String execute() {
 
         if(isAuthenticated)
@@ -28,7 +37,6 @@ public class AddAction extends ActionSupport {
         	String user = "al.linard";
         	
         	Alerte alerte = new Alerte();
-        	
         	alerte.setAdresse(adresse);
         	
         	//TODO replace with current time
@@ -38,7 +46,8 @@ public class AddAction extends ActionSupport {
         	alerte.setLongitude(longitude);
         	alerte.setType(type);
         	alerte.setUser(user);
-        	
+        	 
+        	//Création d'une nouvelle alerte seulement si les champs nécessaires sont remplis
         	if(null != description && null != adresse){
         		if(!description.isEmpty() || !adresse.isEmpty()){
         			AlerteDAO.createOrUpdateAlerte(alerte);

@@ -3,8 +3,17 @@ package com.nantalertes.action;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class contenant des variables constantes de l'application
+ * @author alexis
+ *
+ */
 public class Constants {
 
+	/**
+	 * Méthode retournant la liste des catégories d'alertes
+	 * @return la liste des catégories d'alertes
+	 */
 	public static List<String> getListeCategories()
 	{
 		List<String> listeCat = new ArrayList<String>();

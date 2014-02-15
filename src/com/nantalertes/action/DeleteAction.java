@@ -5,6 +5,11 @@ import com.nantalertes.bean.Alerte;
 import com.nantalertes.dao.AlerteDAO;
 import com.opensymphony.xwork2.ActionSupport;
 
+/**
+ * Action Struts pour la suppression d'alertes
+ * @author alexis
+ *
+ */
 public class DeleteAction extends ActionSupport {
     
     //TODO replace by google authentication
@@ -12,6 +17,9 @@ public class DeleteAction extends ActionSupport {
     
     private int alerteId;
     
+    /**
+     * Méthode execute
+     */
     public String execute() {
  
         if(isAuthenticated)
