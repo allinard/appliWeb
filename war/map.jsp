@@ -88,14 +88,7 @@
 	   				</a></li>
 				</s:iterator>     
             </s:else>
-            <!-- 
-            <li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>Feux de Signalisation - <i>Bd Grabriel lauriol</i></a></li>
-            <li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-trash">&nbsp;</span>D&eacute;ch&ecirc;ts - <i>Place Mangin</i></a></li>
-            <li><a href="#"><span style="color:#115077;" class=" glyphicon glyphicon-tint">&nbsp;</span>Inondations - <i>P&eacute;riph&eacute;rique</i></a></li>
-            <li><a href="#"><span style="color:#115077;" class=" glyphicon glyphicon-pencil">&nbsp;</span>Graffiti - <i>Gare SNCF</i></a></li>
 			<li><a href="/liste.action" style="color:#115077;"><strong><i>afficher plus</i> &raquo;</strong></a></li>
-		   -->
-		  
 		  </ul>
 		  
 		  <ul class="nav nav-sidebar">
