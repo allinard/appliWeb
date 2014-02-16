@@ -20,6 +20,7 @@ public class Constants {
 		listeCat.add("Arrêt déterioré (Bus/Tram)");
 		listeCat.add("Chaussée endommagée");
 		listeCat.add("Débris sur la voie");
+		listeCat.add("Déchets");
 		listeCat.add("Eclairage public défaillant");
 		listeCat.add("Innondation");
 		listeCat.add("Problèmes de signalisation");

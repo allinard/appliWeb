@@ -65,14 +65,37 @@
 			
           <ul class="nav nav-sidebar">
             <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Alertes r&eacute;centes</strong></h4></a></li>
-			<s:iterator value="listeAlertes">
-            	<li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span><s:property value="type"/> - <i><s:property value="adresse"/></i></a></li>
-			</s:iterator>
+            <s:set name="testsListeAlertes" value="listeAlertes"/>
+            <s:if test="%{#testsListeAlertes.isEmpty()}">
+            	<li><center><span style="color:#115077;"><strong><i>Pas d'alertes signalées en cours</i></strong></span></center></li>
+            </s:if>
+            <s:else>
+            	<s:iterator value="listeAlertes" var="alerte">
+			    	<li><a href="#">
+				    <s:if test="#alerte.type == 'Innondation'">
+				    	<span style="color:#115077;" class="glyphicon glyphicon-tint">&nbsp;</span>
+	   				</s:if>
+	   				<s:elseif test="#alerte.type == 'Déchets'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-trash">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Tags/Graffitis'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-pencil">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:else>
+						 <span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>		
+	   				</s:else>
+	   				<s:property value="type"/> - <i><s:property value="adresse"/></i>
+	   				</a></li>
+				</s:iterator>     
+            </s:else>
+            <!-- 
             <li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>Feux de Signalisation - <i>Bd Grabriel lauriol</i></a></li>
             <li><a href="#"><span style="color:#115077;" class="glyphicon glyphicon-trash">&nbsp;</span>D&eacute;ch&ecirc;ts - <i>Place Mangin</i></a></li>
             <li><a href="#"><span style="color:#115077;" class=" glyphicon glyphicon-tint">&nbsp;</span>Inondations - <i>P&eacute;riph&eacute;rique</i></a></li>
             <li><a href="#"><span style="color:#115077;" class=" glyphicon glyphicon-pencil">&nbsp;</span>Graffiti - <i>Gare SNCF</i></a></li>
 			<li><a href="/liste.action" style="color:#115077;"><strong><i>afficher plus</i> &raquo;</strong></a></li>
+		   -->
+		  
 		  </ul>
 		  
 		  <ul class="nav nav-sidebar">
