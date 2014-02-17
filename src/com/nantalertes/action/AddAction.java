@@ -9,61 +9,64 @@ import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * Action Struts pour l'ajout d'une alerte
+ * 
  * @author alexis
- *
+ * 
  */
 public class AddAction extends ActionSupport {
-    private List<Alerte> listeAlertes;
-    private List<String> listeCat = Constants.getListeCategories();
-    
-    //TODO replace by google authentication
-    private boolean isAuthenticated = true;
-    
+	private List<Alerte> listeAlertes;
+	private List<String> listeCat = Constants.getListeCategories();
+
+	// TODO replace by google authentication
+	private boolean isAuthenticated = true;
+
 	private String description;
 	private String type;
 	private String adresse;
 	private String latitude;
 	private String longitude;
-    
-	
+
 	/**
 	 * Méthode execute
 	 */
-    public String execute() {
+	public String execute() {
 
-        if(isAuthenticated)
-        {
-            //TODO replace by google authentication
-        	String user = "al.linard";
-        	
-        	Alerte alerte = new Alerte();
-        	alerte.setAdresse(adresse);
-        	
-        	//TODO replace with current time
-        	alerte.setDate("today");
-        	alerte.setDescription(description);
-        	alerte.setLatitude(latitude);
-        	alerte.setLongitude(longitude);
-        	alerte.setType(type);
-        	alerte.setUser(user);
-        	 
-        	//Création d'une nouvelle alerte seulement si les champs nécessaires sont remplis
-        	if(null != description && null != adresse){
-        		if(!description.isEmpty() || !adresse.isEmpty()){
-        			AlerteDAO.createOrUpdateAlerte(alerte);
-        		}
-        	}
-        	
-        	System.out.println("Add Action");
-        	return "success";
-        }
-        else
-        {
-        	System.out.println("Not authenticated mode");
-        	addActionError(getText("error.login"));
-            return "error";
-        }
-    }
+		if (isAuthenticated) {
+			listeAlertes = AlerteDAO.getAllAlertes();
+
+			// TODO replace by google authentication
+			String user = "al.linard";
+
+			Alerte alerte = new Alerte();
+			alerte.setAdresse(adresse);
+
+			// TODO replace with current time
+			alerte.setDate("today");
+			alerte.setDescription(description);
+			alerte.setLatitude(latitude);
+			alerte.setLongitude(longitude);
+			alerte.setType(type);
+			alerte.setUser(user);
+
+			// Création d'une nouvelle alerte seulement si les champs
+			// nécessaires sont remplis
+			if (null != description && null != adresse) {
+				if (!description.isEmpty() || !adresse.isEmpty()) {
+					AlerteDAO.createOrUpdateAlerte(alerte);
+				}
+				else if (description.isEmpty() || adresse.isEmpty()){
+					addActionError("Veuillez renseigner une description et une adresse du problème à signaler");
+				}
+			}
+
+			System.out.println("Add Action");
+			return "success";
+		} else {
+			System.out.println("Not authenticated mode");
+			addActionError(getText("error.login"));
+			return "error";
+		}
+	}
 
 	public List<Alerte> getListeAlertes() {
 		return listeAlertes;
