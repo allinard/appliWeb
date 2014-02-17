@@ -70,48 +70,32 @@
 			<li>
 			
 				<s:actionerror />
-				<s:form action="add.action" method="post" class="login active">
-					<s:select list="listeCat" name="type"/>
-					<s:textfield name="adresse" value="Adresse" size="20" />
-					<s:textfield name="description" value="Description" size="20" />
-				    <s:submit method="execute" value="Signaler" align="center"  />
+				<s:form action="add.action" method="post" cssClass="navbar-form" theme="simple">
+					<label for="sel_type">Cat&eacute;gorie&nbsp;&nbsp;</label><br>
+					<s:select list="listeCat" name="type" cssClass="form-control" label="Categorie" labelposition="top" labelSeparator=""/>
+					<br><br>
+					
+					<label for="area_descr">Adresse</label><br>
+					<s:textfield name="adresse" cssClass="form-control" size="100%" placeholder="Boulevard Michelet, Nantes" label="Adresse" labelposition="top" labelSeparator=""/>
+					<br><br>
+
+					<label for="area_descr">Description</label><br>
+					<s:textarea name="description" placeholder="Description" cssClass="form-control" rows="6" label="Description" labelposition="top" labelSeparator=""/>
+					<br><br>		    
+		
+					<label for="area_descr">Latitude</label><br>
+				    <s:textfield name="latitude" cssClass="form-control" size="100%" placeholder="Latitude (automatiquement rempli)" label="Latitude" labelposition="top" labelSeparator=""/>
+					<br><br>
+				    
+				    <label for="area_descr">Longitude</label><br>
+				    <s:textfield name="longitude" cssClass="form-control" size="100%" placeholder="Longitude (automatiquement rempli)" label="Longitude" labelposition="top" labelSeparator=""/>
+					<br><br><br>
+				    
+				    <center>
+				    	<s:submit method="execute" value="Signaler" align="center" cssClass="btn btn-success" />
+					</center>
 				</s:form>
 			
-			<!-- 
-			  <form class="navbar-form" method="post" role="form" action="">
-
-					<label for="sel_type">Cat&eacute;gorie&nbsp;&nbsp;</label><br>
-					<select width="100%" class="form-control">
-						<option>Arr&ecirc;t d&eacute;t&eacute;rior&eacute; (Bus/Tram)&nbsp;&nbsp;&nbsp;</option>
-						<option>Chauss&eacute;e endommag&eacute;e</option>
-						<option>D&eacute;bris sur la voie</option>
-						<option>Eclairage public d&eacute;faillant</option>
-						<option>Inondation</option>
-						<option>Probl&egrave;me de signalisation</option>
-						<option>Tags / Graffiti</option>
-						<option>Autre</option>
-					</select>
-				
-				<br><br>
-					<label for="in_txt_adresse">Adresse&nbsp;&nbsp;&nbsp;&nbsp;</label><br>
-					<input type="txt" class="form-control" id="in_txt_adresse" size="100%" placeholder="Boulevard Michelet, Nantes">
-					<p class="help-block">Saisissez une adresse ou cliquez sur la carte pour localiser le probl&egrave;me</p>
-				
-				
-				<br><br>
-					<label for="area_descr">Description</label><br>
-					<textarea class="form-control" rows="6" id="area_descr"></textarea>					
-				
-
-				
-				<br><br>
-				<hr>
-				<div class="form-group">
-					<button type="submit" class="btn btn-success">&nbsp;&nbsp;&nbsp;Signaler&nbsp;&nbsp;&nbsp;</button>
-				</div>
-			  </form>
-			  
-			   -->
 			</li>
 		  </ul>
 

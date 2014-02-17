@@ -64,14 +64,19 @@
 		<p>
 			<center>
 				<s:actionerror />
-				<s:form action="login.action" method="post" class="login active">
-				    <s:submit method="execute" value="Se Connecter" align="center" />
-				    <s:submit method="execute" value="Continuer" align="center"  />
+				<s:form action="login.action" method="post" class="login active" theme="simple">
+					<table>
+						<tr>
+							<td>
+								<s:submit method="execute" value="Se Connecter" align="center" cssClass="btn btn-lg btn-success"/>&nbsp;&nbsp;
+							</td>
+							<td>
+				    			&nbsp;&nbsp;<s:submit method="execute" value="Continuer" align="center" cssClass="btn btn-lg btn-primary"/>
+							</td>
+						</tr>
+					</table>
+				    
 				</s:form>
-				<!-- 
-				<a href="map.html"><input type="button" class="btn btn-lg btn-success" value="Se Connecter"></a>&nbsp;&nbsp;
-				<a href="map.html"><input type="button" class="btn btn-lg btn-primary" value="Continuer"></a>
-				 -->
 				<br>
 				<br>
 				Il faut &ecirc;tre connect&eacute; pour poster une alerte.
