@@ -87,8 +87,8 @@
 	   				<s:property value="type"/> - <i><s:property value="adresse"/></i>
 	   				</a></li>
 				</s:iterator>     
+				<li><a href="/liste.action" style="color:#115077;"><strong><i>afficher plus</i> &raquo;</strong></a></li>
             </s:else>
-			<li><a href="/liste.action" style="color:#115077;"><strong><i>afficher plus</i> &raquo;</strong></a></li>
 		  </ul>
 		  
 		  <ul class="nav nav-sidebar">
