@@ -1,4 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <html lang="en">
   <head>
@@ -64,19 +67,18 @@
 		<p>
 			<center>
 				<s:actionerror />
-				<s:form action="login.action" method="post" class="login active" theme="simple">
 					<table>
 						<tr>
 							<td>
-								<s:submit method="execute" value="Se Connecter" align="center" cssClass="btn btn-lg btn-success"/>&nbsp;&nbsp;
+								<a href="<%= UserServiceFactory.getUserService().createLoginURL("/map.action") %>" class="btn btn-lg btn-success btn-nav">Se Connecter</a>&nbsp;&nbsp;
 							</td>
 							<td>
-				    			&nbsp;&nbsp;<s:submit method="execute" value="Continuer" align="center" cssClass="btn btn-lg btn-primary"/>
+				    			&nbsp;&nbsp;<a href="/map.action" class="btn btn-lg btn-primary">Continuer</a>
 							</td>
 						</tr>
 					</table>
 				    
-				</s:form>
+				<p></p>
 				<br>
 				<br>
 				Il faut &ecirc;tre connect&eacute; pour poster une alerte.

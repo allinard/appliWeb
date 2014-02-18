@@ -1,6 +1,9 @@
 package com.nantalertes.action;
 
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.opensymphony.xwork2.ActionSupport;
 
 
@@ -20,8 +23,11 @@ public class LoginAction extends ActionSupport {
      * Méthode execute
      */
     public String execute() {
+    	//UserService userService = UserServiceFactory.getUserService();
+    	//User user = userService.getCurrentUser();
+    	
  
-        if(isAuthenticated)
+        if(true)
         {
         	System.out.println("Authenticated mode");
         	return "success";

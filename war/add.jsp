@@ -186,14 +186,23 @@
 					<label for="area_descr">Description</label><br>
 					<s:textarea name="description" placeholder="Description" cssClass="form-control" rows="6" label="Description" labelposition="top" labelSeparator=""/>
 					<br><br>		    
-		
+					
+					<div class="row">
+					
+					<div class="col-sm-6 col-md-6">
 					<label for="area_descr">Latitude</label><br>
-				    <s:textfield name="latitude" cssClass="form-control" size="100%" placeholder="Latitude (automatiquement rempli)" label="Latitude" labelposition="top" labelSeparator=""/>
-					<br><br>
+				    <s:textfield name="latitude" cssClass="form-control" disabled="true" size="100%" placeholder="automatique" label="Latitude" labelposition="top" labelSeparator=""/>
+					
+					
+					</div>
+					<div class="col-sm-6 col-md-6">
 				    
 				    <label for="area_descr">Longitude</label><br>
-				    <s:textfield name="longitude" cssClass="form-control" size="100%" placeholder="Longitude (automatiquement rempli)" label="Longitude" labelposition="top" labelSeparator=""/>
-					<br><br><br>
+				    <s:textfield name="longitude" cssClass="form-control" disabled="true" size="100%" placeholder="automatique" label="Longitude" labelposition="top" labelSeparator=""/>
+					
+					</div>
+				    </div>
+				    <br><br><br>
 				    
 				    <center>
 				    	<s:submit method="execute" value="Signaler" align="center" cssClass="btn btn-success" />
