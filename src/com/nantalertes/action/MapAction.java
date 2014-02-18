@@ -17,7 +17,6 @@ public class MapAction extends ActionSupport {
     private boolean isAuthenticated = true;
     
     
-    
     /**
      * Méthode execute
      */

@@ -191,14 +191,14 @@
 					
 					<div class="col-sm-6 col-md-6">
 					<label for="area_descr">Latitude</label><br>
-				    <s:textfield name="latitude" cssClass="form-control" disabled="true" size="100%" placeholder="automatique" label="Latitude" labelposition="top" labelSeparator=""/>
+				    <s:textfield name="latitude" cssClass="form-control" size="100%" placeholder="automatique" label="Latitude" labelposition="top" labelSeparator=""/>
 					
 					
 					</div>
 					<div class="col-sm-6 col-md-6">
 				    
 				    <label for="area_descr">Longitude</label><br>
-				    <s:textfield name="longitude" cssClass="form-control" disabled="true" size="100%" placeholder="automatique" label="Longitude" labelposition="top" labelSeparator=""/>
+				    <s:textfield name="longitude" cssClass="form-control" size="100%" placeholder="automatique" label="Longitude" labelposition="top" labelSeparator=""/>
 					
 					</div>
 				    </div>
