@@ -3,6 +3,10 @@
 <%@ page import="com.nantalertes.bean.Alerte"%>
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%>   
+
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -70,6 +74,11 @@
   // Define markers as "features" of the vector layer:
 	  
 	  <%
+	  UserService userService = UserServiceFactory.getUserService();
+	  User user = userService.getCurrentUser();
+  
+	  
+	  
 	  List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
 	  for(Alerte alerte : listeAlertes){ %>
 	 var feature = new OpenLayers.Feature.Vector(
@@ -131,7 +140,12 @@
         <div class="navbar-collapse collapse">
 		  
           <form class="navbar-form navbar-right">
-		    <button type="button" class="btn btn-success">Connexion</button>
+          	<s:if test="user==null">
+		    <a href="<%=userService.createLoginURL("/map.action")%>" class="btn btn-success">Connexion</a>
+          	</s:if>
+          	<s:else>
+		    <a href="<%= userService.createLogoutURL("/map.action")%>" class="btn btn-danger">D&eacute;connexion</a>
+          	</s:else>
             <!--<input type="text" class="form-control" placeholder="Search...">-->
           </form>
 		  
@@ -139,6 +153,9 @@
             <li><a href="/add.action">Signaler un probl&egrave;me</a></li>
             <li><a href="/liste.action">Liste des Alertes</a></li>
             <li><a href="about.html">A Propos</a></li>
+            <s:if test="user!=null">
+              <li><a href="#"><%=user%></a></li>
+          	</s:if>
           </ul>
 		  
         </div>

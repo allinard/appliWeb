@@ -4,6 +4,10 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%> 
 
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
+
 <html lang="en">
   <head>
     <meta charset="utf-8">
