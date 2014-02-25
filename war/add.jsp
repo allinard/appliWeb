@@ -67,7 +67,7 @@
   var zoom=13;
 	var size = new OpenLayers.Size(70,70);
 	var offset = new OpenLayers.Pixel(-(size.w/2), -size.h);
-	var icon = new OpenLayers.Icon('img/marker.png', size, offset);
+	var icon = new OpenLayers.Icon('img/marker3.png', size, offset);
 	 
 	var markers = new OpenLayers.Layer.Markers( "Markers" );
 	marker = new OpenLayers.Marker(lonLat,icon) ;
