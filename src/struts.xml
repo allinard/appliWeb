@@ -6,6 +6,7 @@
 <struts>
 
 	<package name="default" extends="struts-default" namespace="/">
+	    <default-action-ref name="login" />
 		<action name="login" class="com.nantalertes.action.LoginAction">
 			<result name="success" type="redirectAction">map</result>
 			<result name="error">index.jsp</result>
