@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#" style="color:rgb(140,184,224);"><strong>Nant' Alertes</strong></a>
+          <a class="navbar-brand" href="#" style="color:rgb(140,184,224);"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<strong>Nant' Alertes</strong></a>
         </div>
 
       </div>

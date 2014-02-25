@@ -4,6 +4,9 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.lang.*"%>   
 
+<%@ page import="com.google.appengine.api.users.User" %>
+<%@ page import="com.google.appengine.api.users.UserService" %>
+<%@ page import="com.google.appengine.api.users.UserServiceFactory" %>
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -33,6 +36,11 @@
 	<script type="text/javascript">
 
 	  function init() {
+
+			<%
+			UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser();
+			%>
 		
 	map = new OpenLayers.Map({
       div: "basicMap",
@@ -127,19 +135,51 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/map.action" style="color:rgb(140,184,224);"><strong>Nant' Alertes</strong></a>
+          <a class="navbar-brand" href="/map.action" style="color:rgb(140,184,224);"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<strong>Nant' Alertes</strong></a>
         </div>
         <div class="navbar-collapse collapse">
-		  
-          <form class="navbar-form navbar-right">
-		    <button type="button" class="btn btn-success">Connexion</button>
+		  <form class="navbar-form navbar-right">
+          	<s:if test="user==null">
+		    <a href="<%=userService.createLoginURL("/liste.action")%>" class="btn btn-success">Connexion</a>
+          	</s:if>
+          	<s:else>
+		    <a href="<%= userService.createLogoutURL("/liste.action")%>" class="btn btn-danger">D&eacute;connexion</a>
+          	</s:else>
             <!--<input type="text" class="form-control" placeholder="Search...">-->
           </form>
 		  
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/add.action">Signaler un probl&egrave;me</a></li>
+            <li>
+	            <s:if test="user==null">
+				    <a href="#" data-toggle="modal" data-target="#myModal">Signaler un probl&egrave;me</a>
+				    <!-- Modal -->
+					<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					        <h4 class="modal-title" id="myModalLabel">Signaler un probl&egrave;me</h4>
+					      </div>
+					      <div class="modal-body">
+					        Afin d'ajouter un alerte, vous devez vous connecter
+					      </div>
+					      <div class="modal-footer">
+					        <a href="#" class="btn btn-default" data-dismiss="modal">Fermer</a>
+							<a href="<%=userService.createLoginURL("/liste.action")%>" class="btn btn-success">Se Connecter</a>
+					      </div>
+					    </div>
+					  </div>
+					</div>
+	          	</s:if>
+	          	<s:else>
+		          	<a href="/add.action">Signaler un probl&egrave;me</a>
+	          	</s:else>
+            </li>
             <li class="active_link" ><a href="/liste.action">Liste des Alertes</a></li>
             <li><a href="about.html">A Propos</a></li>
+            <s:if test="user!=null">
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%=user%></a></li>
+          	</s:if>
           </ul>
 		  
         </div>
@@ -191,7 +231,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/transition.js"></script>
     <script src="../../assets/js/docs.min.js"></script>
   </body>
 </html>

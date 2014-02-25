@@ -3,6 +3,8 @@ package com.nantalertes.action;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserServiceFactory;
 import com.nantalertes.bean.Alerte;
 import com.nantalertes.dao.AlerteDAO;
 import com.opensymphony.xwork2.ActionSupport;
@@ -25,12 +27,14 @@ public class AddAction extends ActionSupport {
 	private String adresse;
 	private String latitude;
 	private String longitude;
+    private User user;
 
 	/**
 	 * Méthode execute
 	 */
 	public String execute() {
 
+    	user = UserServiceFactory.getUserService().getCurrentUser();
 		if (isAuthenticated) {
 			listeAlertes = AlerteDAO.getAllAlertes();
 
@@ -130,5 +134,15 @@ public class AddAction extends ActionSupport {
 
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
+	}
+	
+
+	
+	public User getUser(){
+		return user;
+	}
+	
+	public void setUser(User u){
+		user = u;
 	}
 }

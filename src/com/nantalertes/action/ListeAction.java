@@ -4,6 +4,8 @@ import java.util.List;
 import com.nantalertes.bean.Alerte;
 import com.nantalertes.dao.AlerteDAO;
 import com.opensymphony.xwork2.ActionSupport;
+import com.google.appengine.api.users.User;
+import com.google.appengine.api.users.UserServiceFactory;
 
 /**
  * Action Struts pour lister les alertes
@@ -15,11 +17,13 @@ public class ListeAction extends ActionSupport {
     
     //TODO replace by google authentication
     private boolean isAuthenticated = true;
+    private User user;
     
     /**
      * Méthode execute
      */
     public String execute() {
+    	user = UserServiceFactory.getUserService().getCurrentUser();
  
         if(isAuthenticated)
         {
@@ -53,5 +57,13 @@ public class ListeAction extends ActionSupport {
 
 	public void setAuthenticated(boolean isAuthenticated) {
 		this.isAuthenticated = isAuthenticated;
+	}
+	
+	public User getUser(){
+		return user;
+	}
+	
+	public void setUser(User u){
+		user = u;
 	}
 }
