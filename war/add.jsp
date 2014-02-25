@@ -74,8 +74,8 @@
 	marker.map = map ;
 	marker.moveTo(opx) ;
 	var position = map.getLonLatFromViewPortPx(e.xy).transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-	document.getElementById("add_latitude").value=position.lat;
-	document.getElementById("add_longitude").value=position.lon;
+	document.getElementById("add_action_latitude").value=position.lat;
+	document.getElementById("add_action_longitude").value=position.lon;
 	});
 
   map.addControls([
