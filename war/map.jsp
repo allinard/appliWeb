@@ -36,6 +36,11 @@
 	<script type="text/javascript">
 
 	  function init() {
+		  
+			<%
+			UserService userService = UserServiceFactory.getUserService();
+			User user = userService.getCurrentUser();
+			%>
 		
 	map = new OpenLayers.Map({
       div: "basicMap",
@@ -73,22 +78,30 @@
   projectTo = map.getProjectionObject(); //The map projection (Spherical Mercator)
   // Define markers as "features" of the vector layer:
 	  
-	  <%
-	  UserService userService = UserServiceFactory.getUserService();
-	  User user = userService.getCurrentUser();
-  
-	  
-	  
-	  List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
-	  for(Alerte alerte : listeAlertes){ %>
-	 var feature = new OpenLayers.Feature.Vector(
-          new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-          {description:'<center><%=alerte.getType()%><br><i><%=alerte.getAdresse()%></i></center>'} ,
-          {externalGraphic: 'img/marker.png', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
-      );    
-  vectorLayer.addFeatures(feature);
-  
-  		<%} %>
+  <%
+  List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
+	  String pathMarker;
+  for(Alerte alerte : listeAlertes){
+	  if(null!=user){
+		  if(alerte.getUser().toString().equals(user.toString())){
+			  pathMarker="img/marker2.png";
+		  }
+		  else{
+			  pathMarker="img/marker.png";
+		  }
+	  }
+	  else{
+		  pathMarker="img/marker.png";
+	  }
+	  %>
+ var feature = new OpenLayers.Feature.Vector(
+      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
+      {description:'<center><%=alerte.getType()%><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%> par <%=alerte.getUser()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
+      {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
+  );    
+vectorLayer.addFeatures(feature);
+
+		<%} %>
   
   map.addLayer(vectorLayer);
 

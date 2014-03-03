@@ -78,17 +78,30 @@
   projectTo = map.getProjectionObject(); //The map projection (Spherical Mercator)
   // Define markers as "features" of the vector layer:
 	  
-	  <%
-	  List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
-	  for(Alerte alerte : listeAlertes){ %>
-	 var feature = new OpenLayers.Feature.Vector(
-          new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-          {description:'<center><%=alerte.getType()%><br><i><%=alerte.getAdresse()%></i></center>'} ,
-          {externalGraphic: 'img/marker.png', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
-      );    
-  vectorLayer.addFeatures(feature);
-  
-  		<%} %>
+  <%
+  List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
+	  String pathMarker;
+  for(Alerte alerte : listeAlertes){
+	  if(null!=user){
+		  if(alerte.getUser().toString().equals(user.toString())){
+			  pathMarker="img/marker2.png";
+		  }
+		  else{
+			  pathMarker="img/marker.png";
+		  }
+	  }
+	  else{
+		  pathMarker="img/marker.png";
+	  }
+	  %>
+ var feature = new OpenLayers.Feature.Vector(
+      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
+      {description:'<center><%=alerte.getType()%><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%> par <%=alerte.getUser()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
+      {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
+  );    
+vectorLayer.addFeatures(feature);
+
+		<%} %>
   
   map.addLayer(vectorLayer);
 
@@ -199,7 +212,12 @@
             <s:else>
 			    <s:iterator value="listeAlertes" var="alerte">
 			    	<li><a href="#">
-			    	<span style="color:#115077;" class="glyphicon glyphicon-remove-sign" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
+			    	<s:if test="#alerte.removable">
+			    		<span style="color:#115077;" class="glyphicon glyphicon-remove-sign" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
+			    	</s:if>
+			    	<s:else>
+			    		<span>&nbsp;&nbsp;</span>
+			    	</s:else>
 				    <s:if test="#alerte.type == 'Innondation'">
 				    	<span style="color:#115077;" class="glyphicon glyphicon-tint">&nbsp;</span>
 	   				</s:if>

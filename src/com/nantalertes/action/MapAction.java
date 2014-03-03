@@ -10,41 +10,26 @@ import com.opensymphony.xwork2.ActionSupport;
 
 /**
  * Action Struts pour l'écran principal
+ * 
  * @author alexis
- *
+ * 
  */
 public class MapAction extends ActionSupport {
-    private List<Alerte> listeAlertes;
-    
-    //TODO replace by google authentication
-    private boolean isAuthenticated = true;
-    private User user;
-    
-    
-    /**
-     * Méthode execute
-     */
-    public String execute() {
-    	
-    	user = UserServiceFactory.getUserService().getCurrentUser();
- 
-        if(isAuthenticated)
-        {
-        	listeAlertes = AlerteDAO.getLastAlertes();
-        	
-        	
-        	System.out.println("Liste Action");
-        	System.out.println("Alertes stockées " + listeAlertes.size());
+	private List<Alerte> listeAlertes;
 
-        	return "success";
-        }
-        else
-        {
-        	System.out.println("Not authenticated mode");
-        	addActionError(getText("error.login"));
-            return "error";
-        }
-    }
+	private User user;
+
+	/**
+	 * Méthode execute
+	 */
+	public String execute() {
+
+		user = UserServiceFactory.getUserService().getCurrentUser();
+
+		listeAlertes = AlerteDAO.getLastAlertes();
+
+		return "success";
+	}
 
 	public List<Alerte> getListeAlertes() {
 		return listeAlertes;
@@ -54,19 +39,11 @@ public class MapAction extends ActionSupport {
 		this.listeAlertes = listeAlertes;
 	}
 
-	public boolean isAuthenticated() {
-		return isAuthenticated;
-	}
-
-	public void setAuthenticated(boolean isAuthenticated) {
-		this.isAuthenticated = isAuthenticated;
-	}
-	
-	public User getUser(){
+	public User getUser() {
 		return user;
 	}
-	
-	public void setUser(User u){
+
+	public void setUser(User u) {
 		user = u;
 	}
 }

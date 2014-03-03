@@ -49,6 +49,10 @@ public class Alerte implements Comparable<Alerte>{
 	 */
 	private int id;
 
+	/**
+	 * Flag si une alerte peut être supprimée ou non
+	 */
+	private boolean removable;
 	
 	/**
 	 * Constructeur de l'alerte
@@ -191,6 +195,14 @@ public class Alerte implements Comparable<Alerte>{
 	@Override
 	public int compareTo(Alerte o) {
 		return o.getId()-this.getId();
+	}
+
+	public boolean isRemovable() {
+		return removable;
+	}
+
+	public void setRemovable(boolean removable) {
+		this.removable = removable;
 	}
 
 }

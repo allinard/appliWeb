@@ -9,39 +9,37 @@ import com.google.appengine.api.users.UserServiceFactory;
 
 /**
  * Action Struts pour lister les alertes
+ * 
  * @author alexis
- *
+ * 
  */
 public class ListeAction extends ActionSupport {
-    private List<Alerte> listeAlertes;
-    
-    //TODO replace by google authentication
-    private boolean isAuthenticated = true;
-    private User user;
-    
-    /**
-     * Méthode execute
-     */
-    public String execute() {
-    	user = UserServiceFactory.getUserService().getCurrentUser();
- 
-        if(isAuthenticated)
-        {
-        	listeAlertes = AlerteDAO.getAllAlertes();
-        	
-        	
-        	System.out.println("Liste Action");
-        	System.out.println("Alertes stockées " + listeAlertes.size());
+	private List<Alerte> listeAlertes;
 
-        	return "success";
-        }
-        else
-        {
-        	System.out.println("Not authenticated mode");
-        	addActionError(getText("error.login"));
-            return "error";
-        }
-    }
+	private User user;
+
+	/**
+	 * Méthode execute
+	 */
+	public String execute() {
+		user = UserServiceFactory.getUserService().getCurrentUser();
+
+		listeAlertes = AlerteDAO.getAllAlertes();
+
+		//pour savoir si une alerte peut etre supprimée
+		for (Alerte alerte : listeAlertes) {
+			if (null != user) {
+				//si l'alerte a été postée par l'utilisateur en cours OU si l'utilisateur en cours est le superuser
+				if (alerte.getUser().equals(user.toString())
+						|| user.toString().equals(Constants.SUPERUSER)) {
+					//on dit que l'alerte peut etre supprimée
+					alerte.setRemovable(true);
+				}
+			}
+		}
+
+		return "success";
+	}
 
 	public List<Alerte> getListeAlertes() {
 		return listeAlertes;
@@ -51,19 +49,12 @@ public class ListeAction extends ActionSupport {
 		this.listeAlertes = listeAlertes;
 	}
 
-	public boolean isAuthenticated() {
-		return isAuthenticated;
-	}
 
-	public void setAuthenticated(boolean isAuthenticated) {
-		this.isAuthenticated = isAuthenticated;
-	}
-	
-	public User getUser(){
+	public User getUser() {
 		return user;
 	}
-	
-	public void setUser(User u){
+
+	public void setUser(User u) {
 		user = u;
 	}
 }

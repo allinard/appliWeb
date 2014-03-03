@@ -11,6 +11,12 @@ import java.util.List;
 public class Constants {
 
 	/**
+	 * SuperUser, pouvant gérer toutes les alertes
+	 */
+	public static final String SUPERUSER = "m1almatal@gmail.com";
+	
+	
+	/**
 	 * Méthode retournant la liste des catégories d'alertes
 	 * @return la liste des catégories d'alertes
 	 */
