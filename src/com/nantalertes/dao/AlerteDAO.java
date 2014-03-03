@@ -34,9 +34,9 @@ public class AlerteDAO {
 			storedAlerte = new Entity("AlerteId", NEXTID);
 			NEXTID++;
 			storedAlerte.setProperty("AlerteDescription",
-					alerte.getDescription());
+					alerte.getDescription().replaceAll("\'", " "));
 			storedAlerte.setProperty("AlerteType", alerte.getType());
-			storedAlerte.setProperty("AlerteAdresse", alerte.getAdresse());
+			storedAlerte.setProperty("AlerteAdresse", alerte.getAdresse().replaceAll("\'", " "));
 			storedAlerte.setProperty("AlerteLatitude", alerte.getLatitude());
 			storedAlerte.setProperty("AlerteLongitude", alerte.getLongitude());
 			storedAlerte.setProperty("AlerteDate", alerte.getDate());
@@ -45,9 +45,9 @@ public class AlerteDAO {
 		//update
 		else {
 			storedAlerte.setProperty("AlerteDescription",
-					alerte.getDescription());
+					alerte.getDescription().replaceAll("\'", " "));
 			storedAlerte.setProperty("AlerteType", alerte.getType());
-			storedAlerte.setProperty("AlerteAdresse", alerte.getAdresse());
+			storedAlerte.setProperty("AlerteAdresse", alerte.getAdresse().replaceAll("\'", " "));
 			storedAlerte.setProperty("AlerteLatitude", alerte.getLatitude());
 			storedAlerte.setProperty("AlerteLongitude", alerte.getLongitude());
 			storedAlerte.setProperty("AlerteDate", alerte.getDate());
