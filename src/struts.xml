@@ -17,6 +17,7 @@
 		<action name="add" class="com.nantalertes.action.AddAction">
 			<result name="success">add.jsp</result>
 			<result name="error">index.jsp</result>
+			<result name="stored" type="redirectAction">liste</result>
 		</action>
 		<action name="map" class="com.nantalertes.action.MapAction">
 			<result name="success">map.jsp</result>

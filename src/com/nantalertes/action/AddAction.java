@@ -1,5 +1,7 @@
 package com.nantalertes.action;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -19,57 +21,46 @@ public class AddAction extends ActionSupport {
 	private List<Alerte> listeAlertes;
 	private List<String> listeCat = Constants.getListeCategories();
 
-	// TODO replace by google authentication
-	private boolean isAuthenticated = true;
-
 	private String description;
 	private String type;
 	private String adresse;
 	private String latitude;
 	private String longitude;
-    private User user;
+	private User user;
 
 	/**
 	 * Méthode execute
 	 */
 	public String execute() {
 
-    	user = UserServiceFactory.getUserService().getCurrentUser();
-		if (isAuthenticated) {
-			listeAlertes = AlerteDAO.getAllAlertes();
+		user = UserServiceFactory.getUserService().getCurrentUser();
+		listeAlertes = AlerteDAO.getAllAlertes();
+		Alerte alerte = new Alerte();
 
-			// TODO replace by google authentication
-			String user = "al.linard";
-
-			Alerte alerte = new Alerte();
-			alerte.setAdresse(adresse);
-
-			// TODO replace with current time
-			alerte.setDate("today");
-			alerte.setDescription(description);
-			alerte.setLatitude(latitude);
-			alerte.setLongitude(longitude);
-			alerte.setType(type);
-			alerte.setUser(user);
-
-			// Création d'une nouvelle alerte seulement si les champs
-			// nécessaires sont remplis
-			if (null != description && null != adresse) {
-				if (!description.isEmpty() || !adresse.isEmpty()) {
-					AlerteDAO.createOrUpdateAlerte(alerte);
-				}
-				else if (description.isEmpty() || adresse.isEmpty()){
-					addActionError("Veuillez renseigner une description et une adresse du problème à signaler");
-				}
-			}
-
-			System.out.println("Add Action");
-			return "success";
-		} else {
-			System.out.println("Not authenticated mode");
-			addActionError(getText("error.login"));
-			return "error";
+		alerte.setAdresse(adresse);
+		alerte.setDate(DateFormat.getDateTimeInstance(DateFormat.SHORT,
+				DateFormat.SHORT).format(new Date()));
+		alerte.setDescription(description);
+		alerte.setLatitude(latitude);
+		alerte.setLongitude(longitude);
+		alerte.setType(type);
+		if (null != user) {
+			alerte.setUser(user.toString());
 		}
+
+		// Création d'une nouvelle alerte seulement si les champs
+		// nécessaires sont remplis
+		if (null != description && null != adresse) {
+			if (!description.isEmpty() || !adresse.isEmpty()) {
+				AlerteDAO.createOrUpdateAlerte(alerte);
+				return "stored";
+			} else if (description.isEmpty() || adresse.isEmpty()) {
+				addActionError("Veuillez renseigner une description et une adresse du problème à signaler");
+			}
+		}
+
+		System.out.println("Add Action");
+		return "success";
 	}
 
 	public List<Alerte> getListeAlertes() {
@@ -86,14 +77,6 @@ public class AddAction extends ActionSupport {
 
 	public void setListeCat(List<String> listeCat) {
 		this.listeCat = listeCat;
-	}
-
-	public boolean isAuthenticated() {
-		return isAuthenticated;
-	}
-
-	public void setAuthenticated(boolean isAuthenticated) {
-		this.isAuthenticated = isAuthenticated;
 	}
 
 	public String getDescription() {
@@ -135,14 +118,12 @@ public class AddAction extends ActionSupport {
 	public void setLongitude(String longitude) {
 		this.longitude = longitude;
 	}
-	
 
-	
-	public User getUser(){
+	public User getUser() {
 		return user;
 	}
-	
-	public void setUser(User u){
+
+	public void setUser(User u) {
 		user = u;
 	}
 }
