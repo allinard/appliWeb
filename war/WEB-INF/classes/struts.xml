@@ -6,7 +6,20 @@
 <struts>
 
 	<package name="default" extends="struts-default" namespace="/">
-	    <default-action-ref name="login" />
+
+		<interceptors>
+			<interceptor name="gaeFileUploadInterceptor"
+				class="com.struts2.gae.interceptor.GaeFileUploadInterceptor" />
+			<interceptor-stack name="fileUploadStack">
+				<interceptor-ref name="gaeFileUploadInterceptor"></interceptor-ref>
+				<interceptor-ref name="basicStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="fileUploadStack" />
+
+
+		<default-action-ref name="login" />
 		<action name="login" class="com.nantalertes.action.LoginAction">
 			<result name="success">index.jsp</result>
 		</action>

@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
@@ -41,6 +44,7 @@ public class AlerteDAO {
 			storedAlerte.setProperty("AlerteLongitude", alerte.getLongitude());
 			storedAlerte.setProperty("AlerteDate", alerte.getDate());
 			storedAlerte.setProperty("AlerteUser", alerte.getUser());
+			storedAlerte.setProperty("AlerteImage", alerte.getImage());
 		}
 		//update
 		else {
@@ -52,6 +56,7 @@ public class AlerteDAO {
 			storedAlerte.setProperty("AlerteLongitude", alerte.getLongitude());
 			storedAlerte.setProperty("AlerteDate", alerte.getDate());
 			storedAlerte.setProperty("AlerteUser", alerte.getUser());
+			storedAlerte.setProperty("AlerteImage", alerte.getImage());
 		}
 		//persist
 		Util.persistEntity(storedAlerte);
@@ -94,6 +99,8 @@ public class AlerteDAO {
 	public static String deleteAlerte(Alerte alerte) {
 		Key key = KeyFactory.createKey("AlerteId", alerte.getId());
 		Util.deleteEntity(key);
+		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+		blobstoreService.delete(new BlobKey(alerte.getImage()));
 		return "Alert deleted successfully";
 	}
 
@@ -107,6 +114,7 @@ public class AlerteDAO {
 		alerte.setLongitude((String) e.getProperty("AlerteLongitude"));
 		alerte.setDate((String) e.getProperty("AlerteDate"));
 		alerte.setUser((String) e.getProperty("AlerteUser"));
+		alerte.setImage((String) e.getProperty("AlerteImage"));
 
 		return alerte;
 	}

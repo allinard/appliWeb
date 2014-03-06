@@ -1,10 +1,30 @@
 package com.nantalertes.action;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.ByteBuffer;
+import java.nio.channels.Channels;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
+
+import com.google.appengine.api.blobstore.BlobKey;
+import com.google.appengine.api.blobstore.BlobstoreService;
+import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
+import com.google.appengine.api.files.AppEngineFile;
+import com.google.appengine.api.files.FileService;
+import com.google.appengine.api.files.FileServiceFactory;
+import com.google.appengine.api.files.FileWriteChannel;
+import com.google.appengine.api.files.FinalizationException;
+import com.google.appengine.api.files.LockException;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.nantalertes.bean.Alerte;
@@ -26,14 +46,18 @@ public class AddAction extends ActionSupport {
 	private String adresse;
 	private String latitude;
 	private String longitude;
+	private String image;
 	private User user;
 
 	/**
 	 * Méthode execute
 	 */
+	@SuppressWarnings("deprecation")
 	public String execute() {
 
+		// user = new User("al.linard@gmail.com", "gmail");
 		user = UserServiceFactory.getUserService().getCurrentUser();
+
 		listeAlertes = AlerteDAO.getAllAlertes();
 		Alerte alerte = new Alerte();
 
@@ -46,6 +70,19 @@ public class AddAction extends ActionSupport {
 		alerte.setType(type);
 		if (null != user) {
 			alerte.setUser(user.toString());
+		}
+
+		// Pour l'image
+		if (null != image) {
+			if (!image.isEmpty()) {
+				// BlobstoreService blobstoreService =
+				// BlobstoreServiceFactory.getBlobstoreService();
+				//
+				// String cleFichierUploade =
+				// blobstoreService.createGsBlobKey("/gs/"+image).getKeyString();
+				//
+				// alerte.setImage(cleFichierUploade);
+			}
 		}
 
 		// Création d'une nouvelle alerte seulement si les champs
@@ -125,5 +162,13 @@ public class AddAction extends ActionSupport {
 
 	public void setUser(User u) {
 		user = u;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 }

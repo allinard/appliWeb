@@ -257,7 +257,11 @@
 					
 					</div>
 				    </div>
-				    <br><br><br>
+				    <br><br>
+				    
+				    <label for="area_descr">Image</label><br>
+					<s:file name="image" cssClass="form-control" size="100%" placeholder="Cliquez ici pour sélectionner une image" label="Image" labelposition="top" labelSeparator=""/>
+					<br><br><br>
 				    
 				    <center>
 				    	<s:submit method="execute" value="Signaler" align="center" cssClass="btn btn-success" />

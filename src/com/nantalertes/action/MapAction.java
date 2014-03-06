@@ -24,8 +24,9 @@ public class MapAction extends ActionSupport {
 	 */
 	public String execute() {
 
+		//user = new User("al.linard@gmail.com", "gmail");
 		user = UserServiceFactory.getUserService().getCurrentUser();
-
+		
 		listeAlertes = AlerteDAO.getLastAlertes();
 
 		return "success";

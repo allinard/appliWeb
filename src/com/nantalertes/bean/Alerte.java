@@ -55,6 +55,11 @@ public class Alerte implements Comparable<Alerte>{
 	private boolean removable;
 	
 	/**
+	 * key de l'image uploadée
+	 */
+	private String image;
+	
+	/**
 	 * Constructeur de l'alerte
 	 */
 	public Alerte() {
@@ -203,6 +208,14 @@ public class Alerte implements Comparable<Alerte>{
 
 	public void setRemovable(boolean removable) {
 		this.removable = removable;
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }
