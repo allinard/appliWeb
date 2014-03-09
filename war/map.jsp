@@ -20,6 +20,8 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    
+    <link href="css/typeahead.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="css/theme.css" rel="stylesheet">
@@ -236,7 +238,7 @@ vectorLayer.addFeatures(feature);
             <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Dans votre quartier</strong></h4></a></li>
 			<li>
 			  <form class="navbar-form" method="post" action="truc.html">
-				<input type="text" class="form-control" placeholder="Adresse..."><br><br>
+				<input type="text" id="in_txt_adresse" class="form-control" placeholder="Adresse..."><br><br>
 				<button type="submit" class="btn btn-primary">Rechercher</button>
 			  </form>
 			</li>
@@ -259,5 +261,60 @@ vectorLayer.addFeatures(feature);
     <script src="js/bootstrap.js"></script>
     <script src="js/transition.js"></script>
     <script src="../../assets/js/docs.min.js"></script>
+   	<script src="js/jquery.js"></script>
+	<script src="js/typeahead.js"></script>
+    <script>
+   function getFileFromServer(url, doneCallback) {
+    var xhr;
+
+    xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = handleStateChange;
+    xhr.open("GET", url, true);
+    xhr.send();
+
+    function handleStateChange() {
+        if (xhr.readyState === 4) {
+            doneCallback(xhr.status == 200 ? xhr.responseText : null);
+        }
+    }
+}
+   function getLonLat(s, text){
+		var jsonObj = $.parseJSON(text);
+		 
+		for (var i = 0; i < jsonObj.length; i++) {
+			if(jsonObj[i].ADRESSE == s){
+				return new OpenLayers.LonLat(jsonObj[i].LONG_WGS84,jsonObj[i].LAT_WGS84).transform(
+				new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+				map.getProjectionObject());
+			}
+		}
+		alert("nop");
+		return null;
+   }
+   
+   getFileFromServer("data/data.json", function(text) {
+    if (text != null) {
+		var jsonObj = $.parseJSON(text);
+		var sourceArr = [];
+		 
+		for (var i = 0; i < jsonObj.length; i++) {
+		   sourceArr.push(jsonObj[i].ADRESSE);
+		}
+		
+		$("#in_txt_adresse").typeahead({
+		   local: sourceArr,
+		   items : 5,
+		   minLength : 1
+		}).on('typeahead:selected', function (obj, datum) {
+		 
+			var zoom=16;
+			
+			map.setCenter (getLonLat(this.value, text), zoom);
+		});
+		
+    }
+	});
+   
+   </script>
   </body>
 </html>
