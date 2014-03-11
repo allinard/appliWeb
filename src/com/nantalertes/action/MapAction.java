@@ -15,6 +15,8 @@ import com.opensymphony.xwork2.ActionSupport;
  * 
  */
 public class MapAction extends ActionSupport {
+	private List<Alerte> listeLastAlertes;
+	
 	private List<Alerte> listeAlertes;
 
 	private User user;
@@ -27,17 +29,19 @@ public class MapAction extends ActionSupport {
 		//user = new User("al.linard@gmail.com", "gmail");
 		user = UserServiceFactory.getUserService().getCurrentUser();
 		
-		listeAlertes = AlerteDAO.getLastAlertes();
+		listeLastAlertes = AlerteDAO.getLastAlertes();
+		
+		listeAlertes = AlerteDAO.getAllAlertes();
 
 		return "success";
 	}
 
-	public List<Alerte> getListeAlertes() {
-		return listeAlertes;
+	public List<Alerte> getListeLastAlertes() {
+		return listeLastAlertes;
 	}
 
-	public void setListeAlertes(List<Alerte> listeAlertes) {
-		this.listeAlertes = listeAlertes;
+	public void setListeLastAlertes(List<Alerte> listeLastAlertes) {
+		this.listeLastAlertes = listeLastAlertes;
 	}
 
 	public User getUser() {
@@ -46,5 +50,13 @@ public class MapAction extends ActionSupport {
 
 	public void setUser(User u) {
 		user = u;
+	}
+
+	public List<Alerte> getListeAlertes() {
+		return listeAlertes;
+	}
+
+	public void setListeAlertes(List<Alerte> listeAlertes) {
+		this.listeAlertes = listeAlertes;
 	}
 }

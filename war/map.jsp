@@ -208,12 +208,12 @@ vectorLayer.addFeatures(feature);
 			
           <ul class="nav nav-sidebar">
             <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Alertes r&eacute;centes</strong></h4></a></li>
-            <s:set name="testsListeAlertes" value="listeAlertes"/>
+            <s:set name="testsListeAlertes" value="listeLastAlertes"/>
             <s:if test="%{#testsListeAlertes.isEmpty()}">
             	<li><center><span style="color:#115077;"><strong><i>Pas d'alertes signalées en cours</i></strong></span></center></li>
             </s:if>
             <s:else>
-            	<s:iterator value="listeAlertes" var="alerte">
+            	<s:iterator value="listeLastAlertes" var="alerte">
 			    	<li><a href="#">
 				    <s:if test="#alerte.type == 'Innondation'">
 				    	<span style="color:#115077;" class="glyphicon glyphicon-tint">&nbsp;</span>
