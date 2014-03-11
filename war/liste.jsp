@@ -216,7 +216,7 @@ vectorLayer.addFeatures(feature);
 			    		<span style="color:#115077;" class="glyphicon glyphicon-remove-sign" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
 			    	</s:if>
 			    	<s:else>
-			    		<span>&nbsp;&nbsp;</span>
+			    		<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 			    	</s:else>
 				    <s:if test="#alerte.type == 'Innondation'">
 				    	<span style="color:#115077;" class="glyphicon glyphicon-tint">&nbsp;</span>
