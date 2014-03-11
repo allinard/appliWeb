@@ -98,7 +98,7 @@
 	  %>
  var feature = new OpenLayers.Feature.Vector(
       new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-      {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%> par <%=alerte.getUser()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
+      {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
       {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
   );    
 vectorLayer.addFeatures(feature);
