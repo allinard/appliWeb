@@ -235,25 +235,25 @@
 					<br><br>
 					
 					<label for="area_descr">Adresse</label><br>
-					<s:textfield name="adresse" id="in_txt_adresse" cssClass="form-control" size="100%" placeholder="Boulevard Michelet, Nantes" label="Adresse" labelposition="top" labelSeparator=""/>
+					<s:textfield name="adresse" id="in_txt_adresse" required="true" cssClass="form-control" size="100%" placeholder="Boulevard Michelet, Nantes" label="Adresse" labelposition="top" labelSeparator=""/>
 					<br><br>
 
 					<label for="area_descr">Description</label><br>
-					<s:textarea name="description" placeholder="Description" cssClass="form-control" rows="6" label="Description" labelposition="top" labelSeparator=""/>
+					<s:textarea name="description" required="true" placeholder="Description" cssClass="form-control" rows="6" label="Description" labelposition="top" labelSeparator=""/>
 					<br><br>		    
 					
 					<div class="row">
 					
 					<div class="col-sm-6 col-md-6">
 					<label for="area_descr">Latitude</label><br>
-				    <s:textfield name="latitude" cssClass="form-control" size="100%" placeholder="automatique" label="Latitude" labelposition="top" labelSeparator=""/>
+				    <s:textfield name="latitude" required="true" depends="required" cssClass="form-control" size="100%" placeholder="automatique" label="Latitude" labelposition="top" labelSeparator=""/>
 					
 					
 					</div>
 					<div class="col-sm-6 col-md-6">
 				    
 				    <label for="area_descr">Longitude</label><br>
-				    <s:textfield name="longitude" cssClass="form-control" size="100%" placeholder="automatique" label="Longitude" labelposition="top" labelSeparator=""/>
+				    <s:textfield name="longitude" required="true" depends="required" cssClass="form-control" size="100%" placeholder="automatique" label="Longitude" labelposition="top" labelSeparator=""/>
 					
 					</div>
 				    </div>
