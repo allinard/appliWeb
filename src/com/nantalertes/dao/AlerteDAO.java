@@ -139,14 +139,18 @@ public class AlerteDAO {
 	 */
 	public static List<Alerte> getLastAlertes() {
 		List<Alerte> listeAlerte = new ArrayList<Alerte>();
-		Set<Alerte> tempListe = new TreeSet<Alerte>();
+		Set<Alerte> tempSet = new TreeSet<Alerte>();
+		List<Alerte> tempListe = new ArrayList<Alerte>();
 		int i=0;
 		for (Entity entity : getAllEntities()) {
-			tempListe.add(getAlerte(entity));
-			i++;
-			if(i>3) break;
+			tempSet.add(getAlerte(entity));
 		}
-		listeAlerte.addAll(tempListe);
+		tempListe.addAll(tempSet);
+		for(Alerte alerte : tempListe){
+			listeAlerte.add(alerte);
+			if(i>=3)break;
+			i++;
+		}
 		return listeAlerte;
 	}
 
