@@ -1,30 +1,10 @@
 package com.nantalertes.action;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Map;
+import java.util.Locale;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.ServletActionContext;
-
-import com.google.appengine.api.blobstore.BlobKey;
-import com.google.appengine.api.blobstore.BlobstoreService;
-import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
-import com.google.appengine.api.files.AppEngineFile;
-import com.google.appengine.api.files.FileService;
-import com.google.appengine.api.files.FileServiceFactory;
-import com.google.appengine.api.files.FileWriteChannel;
-import com.google.appengine.api.files.FinalizationException;
-import com.google.appengine.api.files.LockException;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.nantalertes.bean.Alerte;
@@ -52,7 +32,6 @@ public class AddAction extends ActionSupport {
 	/**
 	 * Méthode execute
 	 */
-	@SuppressWarnings("deprecation")
 	public String execute() {
 
 		// user = new User("al.linard@gmail.com", "gmail");
@@ -62,8 +41,8 @@ public class AddAction extends ActionSupport {
 		Alerte alerte = new Alerte();
 
 		alerte.setAdresse(adresse);
-		alerte.setDate(DateFormat.getDateTimeInstance(DateFormat.SHORT,
-				DateFormat.SHORT).format(new Date()));
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("'le' dd MMMM yyyy 'à' HH'h'mm", Locale.FRENCH);
+		alerte.setDate(simpleDateFormat.format(new Date()));
 		alerte.setDescription(description);
 		alerte.setLatitude(latitude);
 		alerte.setLongitude(longitude);

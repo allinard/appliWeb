@@ -144,7 +144,7 @@ public class AlerteDAO {
 		for (Entity entity : getAllEntities()) {
 			tempListe.add(getAlerte(entity));
 			i++;
-			if(i>5) break;
+			if(i>3) break;
 		}
 		listeAlerte.addAll(tempListe);
 		return listeAlerte;
