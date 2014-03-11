@@ -116,7 +116,7 @@
 		  %>
 	 var feature = new OpenLayers.Feature.Vector(
           new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-          {description:'<center><%=alerte.getType()%><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%> par <%=alerte.getUser()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
+          {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%> par <%=alerte.getUser()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
           {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
       );    
   vectorLayer.addFeatures(feature);
@@ -169,7 +169,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/map.action" style="color:rgb(140,184,224);"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<strong>Nant' Alertes</strong></a>
+          <a class="navbar-brand" href="/map.action" style="color:rgb(140,184,224);"><img height="40px" style="margin-top:-10px;" src="img/logo.png"></a>
         </div>
         <div class="navbar-collapse collapse">
 		  <form class="navbar-form navbar-right">

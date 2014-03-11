@@ -42,7 +42,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#" style="color:rgb(140,184,224);"><span class="glyphicon glyphicon-home"></span>&nbsp;&nbsp;<strong>Nant' Alertes</strong></a>
+          <a class="navbar-brand" href="#" style="color:rgb(140,184,224);"><img height="40px" style="margin-top:-10px;" src="img/logo.png"></a>
         </div>
 
       </div>
@@ -50,7 +50,7 @@
 
     <div class="container">
 		<div class="page-header">
-			<h1>Bienvenue sur Nant' Alertes</h1>
+			<h1>Bienvenue sur <img src="img/logo2.png" height="67px" style="margin-top:-6px;"></h1>
 		</div>
 		<div class="lead">
 			Un probl&egrave;me dans votre rue ?
