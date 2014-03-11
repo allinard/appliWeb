@@ -24,7 +24,7 @@ public class AlerteDAO {
 	/**
 	 * ID de la prochaine alerte
 	 */
-	public static int NEXTID = 1;
+	public static int NEXTID = nextId();
 
 	/**
 	 * Methode permettant de créer ou de mettre a jour une alerte
@@ -159,6 +159,22 @@ public class AlerteDAO {
 		Key key = KeyFactory.createKey("AlerteId", alerteId);
 		Util.deleteEntity(key);
 		return "Alert deleted successfully";		
+	}
+	
+	
+	public static int nextId()
+	{
+		List<Alerte> listeAlertes = getAllAlertes();
+		int plusGrand = 0;
+		
+		for(Alerte alerte : listeAlertes)
+		{
+			if(alerte.getId()>plusGrand){
+				plusGrand=alerte.getId();
+			}
+		}
+		
+		return plusGrand+1;
 	}
 
 }
