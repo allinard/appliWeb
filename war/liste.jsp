@@ -96,7 +96,7 @@
 	  %>
  var feature = new OpenLayers.Feature.Vector(
       new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-      {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
+      {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
       {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
   );    
 vectorLayer.addFeatures(feature);
@@ -137,7 +137,7 @@ vectorLayer.addFeatures(feature);
 	</script>
   </head>
 
-  <body onload="document.getElementById('basicMap').style.height=((document.getElementById('sidebar').offsetHeight-document.getElementById('navbar').offsetHeight)+'px');init();" onresize="document.getElementById('basicMap').style.height=((document.getElementById('sidebar').offsetHeight-document.getElementById('navbar').offsetHeight)+'px');">
+  <body onload="document.getElementById('basicMap').style.height=((document.getElementById('sidebar').offsetHeight-document.getElementById('navbar').offsetHeight)+'px');init();document.getElementById('scroll_liste').style.height=(document.getElementById('basicMap').offsetHeight-130)+'px'; document.getElementById('scroll_liste').style.overflow='auto';" onresize="document.getElementById('basicMap').style.height=((document.getElementById('sidebar').offsetHeight-document.getElementById('navbar').offsetHeight)+'px');document.getElementById('scroll_liste').style.height=(document.getElementById('basicMap').offsetHeight-130)+'px';">
 
     <div id="navbar" class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="box-shadow: -5px 5px 8px grey;">
       <div class="container-fluid">
@@ -174,11 +174,11 @@ vectorLayer.addFeatures(feature);
 					        <h4 class="modal-title" id="myModalLabel">Signaler un probl&egrave;me</h4>
 					      </div>
 					      <div class="modal-body">
-					        Afin d'ajouter un alerte, vous devez vous connecter
+					        Afin d'ajouter une alerte, vous devez vous connecter
 					      </div>
 					      <div class="modal-footer">
 					        <a href="#" class="btn btn-default" data-dismiss="modal">Fermer</a>
-							<a href="<%=userService.createLoginURL("/liste.action")%>" class="btn btn-success">Se Connecter</a>
+							<a href="<%=userService.createLoginURL("/add.action")%>" class="btn btn-success">Se Connecter</a>
 					      </div>
 					    </div>
 					  </div>
@@ -205,6 +205,8 @@ vectorLayer.addFeatures(feature);
 			
           <ul class="nav nav-sidebar">
             <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Liste des Alertes</strong></h4></a></li>
+          </ul>
+          <ul class="nav nav-sidebar" id="scroll_liste">
             <s:set name="testsListeAlertes" value="listeAlertes"/>
             <s:if test="%{#testsListeAlertes.isEmpty()}">
             	<li><center><span style="color:#115077;"><strong><i>Pas d'alertes signalées en cours</i></strong></span></center></li>

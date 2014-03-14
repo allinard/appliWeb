@@ -177,7 +177,7 @@ vectorLayer.addFeatures(feature);
 					        <h4 class="modal-title" id="myModalLabel">Signaler un probl&egrave;me</h4>
 					      </div>
 					      <div class="modal-body">
-					        Afin d'ajouter un alerte, vous devez vous connecter
+					        Afin d'ajouter une alerte, vous devez vous connecter
 					      </div>
 					      <div class="modal-footer">
 					        <a href="#" class="btn btn-default" data-dismiss="modal">Fermer</a>

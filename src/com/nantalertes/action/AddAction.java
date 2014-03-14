@@ -66,12 +66,12 @@ public class AddAction extends ActionSupport {
 
 		// Création d'une nouvelle alerte seulement si les champs
 		// nécessaires sont remplis
-		if (null != description && null != adresse) {
-			if (!description.isEmpty() || !adresse.isEmpty()) {
+		if (null != latitude && null != longitude) {
+			if (!latitude.isEmpty() || !longitude.isEmpty()) {
 				AlerteDAO.createOrUpdateAlerte(alerte);
 				return "stored";
-			} else if (description.isEmpty() || adresse.isEmpty()) {
-				addActionError("Veuillez renseigner une description et une adresse du problème à signaler");
+			} else if (latitude.isEmpty() || longitude.isEmpty()) {
+				addActionError("Veuillez localiser votre alerte en cliquant sur la carte !");
 			}
 		}
 

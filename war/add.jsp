@@ -79,8 +79,9 @@
 	marker.map = map ;
 	marker.moveTo(opx) ;
 	var position = map.getLonLatFromViewPortPx(e.xy).transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
-	document.getElementById("add_action_latitude").value=position.lat;
-	document.getElementById("add_action_longitude").value=position.lon;
+	document.getElementById("lat").value=position.lat;
+	document.getElementById("lon").value=position.lon;
+	document.getElementById('alert_pos').innerHTML='Alerte localis&eacute;e';
 	});
 
   map.addControls([
@@ -236,12 +237,13 @@
 					
 					<label for="area_descr">Adresse</label><br>
 					<s:textfield name="adresse" id="in_txt_adresse" required="true" cssClass="form-control" size="100%" placeholder="Boulevard Michelet, Nantes" label="Adresse" labelposition="top" labelSeparator=""/>
-					<br><br>
+					<br><span id="alert_pos">Saisissez une adresse puis cliquez sur la carte pour localiser votre alerte</span><br><br>
+
 
 					<label for="area_descr">Description</label><br>
 					<s:textarea name="description" required="true" placeholder="Description" cssClass="form-control" rows="6" label="Description" labelposition="top" labelSeparator=""/>
 					<br><br>		    
-					
+					<!-- 
 					<div class="row">
 					
 					<div class="col-sm-6 col-md-6">
@@ -257,6 +259,21 @@
 					
 					</div>
 				    </div>
+				     -->
+				     
+				    <s:hidden name="latitude" id="lat" value=""/>
+				    <s:hidden name="longitude" id="lon" value=""/>
+				    
+				    
+				    
+				    <label for="hiddenfile">Image&nbsp;&nbsp;&nbsp;&nbsp;</label><br>
+					<s:file id="hiddenfile" style="display:none" name="file" onChange="getvalue();"/>
+					<div class="btn btn-default"  onclick="getfile();" width="100%">
+						<input type="button" class="btn btn-sm btn-primary" value="Parcourir..." onclick="getfile();"/>&nbsp;
+						<span id="selectedfile">
+							Aucun fichier
+						</span>
+					</div>
 				    <br><br><br>
 				    
 				    <!-- 
@@ -293,6 +310,12 @@
    	<script src="js/jquery.js"></script>
 	<script src="js/typeahead.js"></script>
    <script>
+   function getfile(){
+       document.getElementById('hiddenfile').click();
+   }
+   function getvalue(){
+       document.getElementById('selectedfile').innerHTML=document.getElementById('hiddenfile').value;
+   }
    function getFileFromServer(url, doneCallback) {
     var xhr;
 
