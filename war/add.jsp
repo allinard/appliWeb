@@ -81,7 +81,7 @@
 	var position = map.getLonLatFromViewPortPx(e.xy).transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
 	document.getElementById("lat").value=position.lat;
 	document.getElementById("lon").value=position.lon;
-	document.getElementById('alert_pos').innerHTML='Alerte localis&eacute;e';
+	document.getElementById('alert_pos').innerHTML='<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;<i>Alerte localis&eacute;e</i>';
 	});
 
   map.addControls([
@@ -117,9 +117,10 @@
 		  %>
 	 var feature = new OpenLayers.Feature.Vector(
           new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-          {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté le <%=alerte.getDate()%> <br><b>Description : </b><%=alerte.getDescription()%>'} ,
+          {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%> <br><b>Description : </b><%=alerte.getDescription()%>'} ,
           {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
       );    
+	 feature.data.id = '<%=alerte.getId()%>';
   vectorLayer.addFeatures(feature);
   
   		<%} %>
@@ -196,7 +197,7 @@
 					        <h4 class="modal-title" id="myModalLabel">Signaler un probl&egrave;me</h4>
 					      </div>
 					      <div class="modal-body">
-					        Afin d'ajouter un alerte, vous devez vous connecter
+					        Afin d'ajouter une alerte, vous devez vous connecter
 					      </div>
 					      <div class="modal-footer">
 					        <a href="#" class="btn btn-default" data-dismiss="modal">Fermer</a>
@@ -237,7 +238,7 @@
 					
 					<label for="area_descr">Adresse</label><br>
 					<s:textfield name="adresse" id="in_txt_adresse" required="true" cssClass="form-control" size="100%" placeholder="Boulevard Michelet, Nantes" label="Adresse" labelposition="top" labelSeparator=""/>
-					<br><span id="alert_pos">Saisissez une adresse puis cliquez sur la carte pour localiser votre alerte</span><br><br>
+					<br><center><span id="alert_pos"><i>Saisissez une adresse puis cliquez sur la carte pour localiser votre alerte</i>&nbsp;&nbsp;<span class="glyphicon glyphicon-map-marker"></span></span></center><br><br>
 
 
 					<label for="area_descr">Description</label><br>

@@ -34,7 +34,7 @@
     <![endif]-->
 	<script src="js/OpenLayers.js"></script>
 	<script type="text/javascript">
-
+	var feature;
 	  function init() {
 
 			<%
@@ -94,11 +94,12 @@
 		  pathMarker="img/marker.png";
 	  }
 	  %>
- var feature = new OpenLayers.Feature.Vector(
+ feature = new OpenLayers.Feature.Vector(
       new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
       {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
       {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
   );    
+ feature.data.id = '<%=alerte.getId()%>';
 vectorLayer.addFeatures(feature);
 
 		<%} %>
@@ -111,29 +112,42 @@ vectorLayer.addFeatures(feature);
     selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup })
   };
 
-  function createPopup(feature) {
-    feature.popup = new OpenLayers.Popup.FramedCloud("pop",
-        feature.geometry.getBounds().getCenterLonLat(),
-        null,
-        '<div class="markerContent">'+feature.attributes.description+'</div>',
-        null,
-        true,
-        function() { controls['selector'].unselectAll(); }
-    );
-    //feature.popup.closeOnMove = true;
-    map.addPopup(feature.popup);
-  }
-
-  function destroyPopup(feature) {
-    feature.popup.destroy();
-    feature.popup = null;
-  }
   
   map.addControl(controls['selector']);
   controls['selector'].activate();
     
 	  }
-	
+
+	  function getFeature(features, id){
+		  var i = 0;
+		  for(i=0; i<features.length; i++){
+			  
+			  if(features[i].data.id==id){
+
+				  return features[i];
+			  }
+		  }
+
+		  return null;
+	  }
+	  
+	  function createPopup(feature) {
+	    feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+	        feature.geometry.getBounds().getCenterLonLat(),
+	        null,
+	        '<div class="markerContent">'+feature.attributes.description+'</div>',
+	        null,
+	        true,
+	        function() { controls['selector'].unselectAll(); }
+	    );
+	    //feature.popup.closeOnMove = true;
+	    map.addPopup(feature.popup);
+	  }
+
+	  function destroyPopup(feature) {
+	    feature.popup.destroy();
+	    feature.popup = null;
+	  }	
 	</script>
   </head>
 
@@ -213,7 +227,7 @@ vectorLayer.addFeatures(feature);
             </s:if>
             <s:else>
 			    <s:iterator value="listeAlertes" var="alerte">
-			    	<li><a href="#">
+			    	<li><a href="#" name=<s:property value='id'/> onclick="createPopup(getFeature(map.layers[1].features, this.attributes['name'].value));">
 			    	<s:if test="#alerte.removable">
 			    		<span style="color:#115077;" class="glyphicon glyphicon-remove-sign" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
 			    	</s:if>
