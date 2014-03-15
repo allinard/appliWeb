@@ -315,7 +315,8 @@
        document.getElementById('hiddenfile').click();
    }
    function getvalue(){
-       document.getElementById('selectedfile').innerHTML=document.getElementById('hiddenfile').value;
+       //document.getElementById('selectedfile').innerHTML=document.getElementById('hiddenfile').value;
+	   document.getElementById('selectedfile').innerHTML="Not Implemented";
    }
    function getFileFromServer(url, doneCallback) {
     var xhr;

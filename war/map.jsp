@@ -36,6 +36,8 @@
     <![endif]-->
 	<script src="js/OpenLayers.js"></script>
 	<script type="text/javascript">
+	var feature;
+	var lastFeature = null;
 
 	  function init() {
 		  
@@ -101,6 +103,10 @@
       {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
       {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
   );    
+
+ feature.data.id = '<%=alerte.getId()%>';
+ feature.data.lat = '<%=alerte.getLatitude()%>';
+ feature.data.lon = '<%=alerte.getLongitude()%>';
 vectorLayer.addFeatures(feature);
 
 		<%} %>
@@ -112,29 +118,59 @@ vectorLayer.addFeatures(feature);
   var controls = {
     selector: new OpenLayers.Control.SelectFeature(vectorLayer, { onSelect: createPopup, onUnselect: destroyPopup })
   };
-
-  function createPopup(feature) {
-    feature.popup = new OpenLayers.Popup.FramedCloud("pop",
-        feature.geometry.getBounds().getCenterLonLat(),
-        null,
-        '<div class="markerContent">'+feature.attributes.description+'</div>',
-        null,
-        true,
-        function() { controls['selector'].unselectAll(); }
-    );
-    //feature.popup.closeOnMove = true;
-    map.addPopup(feature.popup);
-  }
-
-  function destroyPopup(feature) {
-    feature.popup.destroy();
-    feature.popup = null;
-  }
   
   map.addControl(controls['selector']);
   controls['selector'].activate();
     
 	  }
+	 
+
+	  function getFeature(features, id){
+		  var i = 0;
+		  for(i=0; i<features.length; i++){
+			  
+			  if(features[i].data.id==id){
+
+				  return features[i];
+			  }
+		  }
+
+		  return null;
+	  }
+	  
+	  function centerMap(feature){
+		  var lonLat = new OpenLayers.LonLat(parseFloat(feature.data.lon),parseFloat(feature.data.lat)).transform(
+		          new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+		          map.getProjectionObject() // to Spherical Mercator Projection
+		        );
+
+		  var zoom=15;
+
+		  map.setCenter (lonLat, zoom);
+	  }
+	  
+	  function createPopup(feature) {
+		if(lastFeature!=null){
+			destroyPopup(lastFeature);
+		}
+	    feature.popup = new OpenLayers.Popup.FramedCloud("pop",
+	        feature.geometry.getBounds().getCenterLonLat(),
+	        null,
+	        '<div class="markerContent">'+feature.attributes.description+'</div>',
+	        null,
+	        true,
+	        function() { controls['selector'].unselectAll(); }
+	    );
+	    lastFeature = feature;
+	    //feature.popup.closeOnMove = true;
+	    map.addPopup(feature.popup);
+	  }
+
+	  function destroyPopup(feature) {
+		lastFeature = null;
+	    feature.popup.destroy();
+	    feature.popup = null;
+	  }	
 	
 	</script>
   </head>
@@ -214,7 +250,7 @@ vectorLayer.addFeatures(feature);
             </s:if>
             <s:else>
             	<s:iterator value="listeLastAlertes" var="alerte">
-			    	<li><a href="#">
+			    	<li><a href="#"  name=<s:property value='id'/> onclick="feat=getFeature(map.layers[1].features, this.attributes['name'].value);centerMap(feat);createPopup(feat);">
 				    <s:if test="#alerte.type == 'Innondation'">
 				    	<span style="color:#115077;" class="glyphicon glyphicon-tint">&nbsp;</span>
 	   				</s:if>

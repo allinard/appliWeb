@@ -35,6 +35,7 @@
 	<script src="js/OpenLayers.js"></script>
 	<script type="text/javascript">
 	var feature;
+	var lastFeature = null;
 	  function init() {
 
 			<%
@@ -100,6 +101,8 @@
       {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
   );    
  feature.data.id = '<%=alerte.getId()%>';
+ feature.data.lat = '<%=alerte.getLatitude()%>';
+ feature.data.lon = '<%=alerte.getLongitude()%>';
 vectorLayer.addFeatures(feature);
 
 		<%} %>
@@ -131,7 +134,21 @@ vectorLayer.addFeatures(feature);
 		  return null;
 	  }
 	  
+	  function centerMap(feature){
+		  var lonLat = new OpenLayers.LonLat(parseFloat(feature.data.lon),parseFloat(feature.data.lat)).transform(
+		          new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+		          map.getProjectionObject() // to Spherical Mercator Projection
+		        );
+
+		  var zoom=15;
+
+		  map.setCenter (lonLat, zoom);
+	  }
+	  
 	  function createPopup(feature) {
+		if(lastFeature!=null){
+			destroyPopup(lastFeature);
+		}
 	    feature.popup = new OpenLayers.Popup.FramedCloud("pop",
 	        feature.geometry.getBounds().getCenterLonLat(),
 	        null,
@@ -140,11 +157,13 @@ vectorLayer.addFeatures(feature);
 	        true,
 	        function() { controls['selector'].unselectAll(); }
 	    );
+	    lastFeature = feature;
 	    //feature.popup.closeOnMove = true;
 	    map.addPopup(feature.popup);
 	  }
 
 	  function destroyPopup(feature) {
+		lastFeature = null;
 	    feature.popup.destroy();
 	    feature.popup = null;
 	  }	
@@ -227,7 +246,7 @@ vectorLayer.addFeatures(feature);
             </s:if>
             <s:else>
 			    <s:iterator value="listeAlertes" var="alerte">
-			    	<li><a href="#" name=<s:property value='id'/> onclick="createPopup(getFeature(map.layers[1].features, this.attributes['name'].value));">
+			    	<li><a href="#" name=<s:property value='id'/> onclick="feat=getFeature(map.layers[1].features, this.attributes['name'].value);centerMap(feat);createPopup(feat);">
 			    	<s:if test="#alerte.removable">
 			    		<span style="color:#115077;" class="glyphicon glyphicon-remove-sign" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
 			    	</s:if>
