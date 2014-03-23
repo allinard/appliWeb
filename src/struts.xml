@@ -39,6 +39,12 @@
 		<action name="delete" class="com.nantalertes.action.DeleteAction">
 			<result name="success" type="redirectAction">liste</result>
 		</action>
+		<action name="account" class="com.nantalertes.action.AccountAction">
+			<result name="success">account.jsp</result>
+		</action>
+		<action name="about" class="com.nantalertes.action.AboutAction">
+			<result name="success">about.jsp</result>
+		</action>
 	</package>
 
 </struts>

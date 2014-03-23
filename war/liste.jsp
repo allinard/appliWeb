@@ -82,24 +82,32 @@
   <%
   List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
 	  String pathMarker;
-  for(Alerte alerte : listeAlertes){
-	  if(null!=user){
-		  if(alerte.getUser().toString().equals(user.toString())){
-			  pathMarker="img/marker2.png";
+	  for(Alerte alerte : listeAlertes){
+		  if(null!=user){
+			  if(alerte.getUser().toString().equals(user.toString())){
+				  pathMarker="img/marker2.png";%>
+				  popup_footer='<a href="/delete.action?alerteId=<%=alerte.getId()%>" style="color:grey;"><span class="glyphicon glyphicon-remove"></span>&nbsp;Supprimer</a>';
+				  <%
+			  }
+			  else{
+				  pathMarker="img/marker.png"; %>
+				  popup_footer ='<a href="#" style="color:grey;"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Je confirme</a>';
+				  <%
+			  }
 		  }
 		  else{
-			  pathMarker="img/marker.png";
+			  pathMarker="img/marker.png"; %>
+			  popup_footer='';
+			  <%
 		  }
-	  }
-	  else{
-		  pathMarker="img/marker.png";
-	  }
-	  %>
- feature = new OpenLayers.Feature.Vector(
-      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-      {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%>'} ,
-      {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
-  );    
+		  %>
+		  
+	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span> 2</span>';
+	 var feature = new OpenLayers.Feature.Vector(
+	      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
+	      {description:'<center><strong><%=alerte.getType()%>&nbsp;</strong><span style="color:DarkRed;cursor:pointer;" class="pull-right" onclick="destroyPopup(lastFeature);">&times;</span><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%><br><br>'+popup_footer} ,
+	      {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
+	  );       
  feature.data.id = '<%=alerte.getId()%>';
  feature.data.lat = '<%=alerte.getLatitude()%>';
  feature.data.lon = '<%=alerte.getLongitude()%>';
@@ -222,9 +230,9 @@ vectorLayer.addFeatures(feature);
 	          	</s:else>
             </li>
             <li class="active_link" ><a href="/liste.action">Liste des Alertes</a></li>
-            <li><a href="about.html">A Propos</a></li>
+            <li><a href="/about.action">A Propos</a></li>
             <s:if test="user!=null">
-              <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%=user%></a></li>
+              <li><a href="/account.action"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%=user%></a></li>
           	</s:if>
           </ul>
 		  
@@ -248,7 +256,7 @@ vectorLayer.addFeatures(feature);
 			    <s:iterator value="listeAlertes" var="alerte">
 			    	<li><a href="#" name=<s:property value='id'/> onclick="feat=getFeature(map.layers[1].features, this.attributes['name'].value);centerMap(feat);createPopup(feat);">
 			    	<s:if test="#alerte.removable">
-			    		<span style="color:#115077;" class="glyphicon glyphicon-remove-sign" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
+			    		<span style="color:#115077;" class="glyphicon glyphicon-remove" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
 			    	</s:if>
 			    	<s:else>
 			    		<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
@@ -261,6 +269,9 @@ vectorLayer.addFeatures(feature);
 	   				</s:elseif>
 	   				<s:elseif test="#alerte.type == 'Tags/Graffitis'">
 	   					<span style="color:#115077;" class="glyphicon glyphicon-pencil">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Chaussée endommagée'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-road">&nbsp;</span>
 	   				</s:elseif>
 	   				<s:else>
 						 <span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>		

@@ -102,24 +102,32 @@
 	  <%
 	  List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
   	  String pathMarker;
-	  for(Alerte alerte : listeAlertes){
-		  if(null!=user){
-			  if(alerte.getUser().toString().equals(user.toString())){
-				  pathMarker="img/marker2.png";
-			  }
-			  else{
-				  pathMarker="img/marker.png";
-			  }
-		  }
-		  else{
-			  pathMarker="img/marker.png";
-		  }
-		  %>
-	 var feature = new OpenLayers.Feature.Vector(
-          new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
-          {description:'<center><strong><%=alerte.getType()%></strong><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%> <br><b>Description : </b><%=alerte.getDescription()%>'} ,
-          {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
-      );    
+  	  for(Alerte alerte : listeAlertes){
+  		  if(null!=user){
+  			  if(alerte.getUser().toString().equals(user.toString())){
+  				  pathMarker="img/marker2.png";%>
+  				  popup_footer='<a href="/delete.action?alerteId=<%=alerte.getId()%>" style="color:grey;"><span class="glyphicon glyphicon-remove"></span>&nbsp;Supprimer</a>';
+  				  <%
+  			  }
+  			  else{
+  				  pathMarker="img/marker.png"; %>
+  				  popup_footer ='<a href="#" style="color:grey;"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Je confirme</a>';
+  				  <%
+  			  }
+  		  }
+  		  else{
+  			  pathMarker="img/marker.png"; %>
+  			  popup_footer='';
+  			  <%
+  		  }
+  		  %>
+  		  
+  	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span> 2</span>';
+  	 var feature = new OpenLayers.Feature.Vector(
+  	      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
+  	      {description:'<center><strong><%=alerte.getType()%>&nbsp;</strong><span style="color:DarkRed;cursor:pointer;" class="pull-right" onclick="destroyPopup(lastFeature);">&times;</span><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%><br><br>'+popup_footer} ,
+  	      {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
+  	  );      
 	 feature.data.id = '<%=alerte.getId()%>';
   vectorLayer.addFeatures(feature);
   
@@ -212,9 +220,9 @@
 	          	</s:else>
             </li>
             <li><a href="/liste.action">Liste des Alertes</a></li>
-            <li><a href="about.html">A Propos</a></li>
+            <li><a href="/about.action">A Propos</a></li>
             <s:if test="user!=null">
-              <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%=user%></a></li>
+              <li><a href="/account.action"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%=user%></a></li>
           	</s:if>
           </ul>
 		  
@@ -238,44 +246,31 @@
 					
 					<label for="area_descr">Adresse</label><br>
 					<s:textfield name="adresse" id="in_txt_adresse" required="true" cssClass="form-control" size="100%" placeholder="Boulevard Michelet, Nantes" label="Adresse" labelposition="top" labelSeparator=""/>
-					<br><center><span id="alert_pos"><i>Saisissez une adresse puis cliquez sur la carte pour localiser votre alerte</i>&nbsp;&nbsp;<span class="glyphicon glyphicon-map-marker"></span></span></center><br><br>
+					<br><br>
 
+					<label>Localisez votre alerte</label>
+					<center><span id="alert_pos"><i>Cliquez sur la carte</i>&nbsp;&nbsp;<span class="glyphicon glyphicon-map-marker"></span></span></center>
+					<br>
 
 					<label for="area_descr">Description</label><br>
 					<s:textarea name="description" required="true" placeholder="Description" cssClass="form-control" rows="6" label="Description" labelposition="top" labelSeparator=""/>
 					<br><br>		    
-					<!-- 
-					<div class="row">
-					
-					<div class="col-sm-6 col-md-6">
-					<label for="area_descr">Latitude</label><br>
-				    <s:textfield name="latitude" required="true" depends="required" cssClass="form-control" size="100%" placeholder="automatique" label="Latitude" labelposition="top" labelSeparator=""/>
-					
-					
-					</div>
-					<div class="col-sm-6 col-md-6">
-				    
-				    <label for="area_descr">Longitude</label><br>
-				    <s:textfield name="longitude" required="true" depends="required" cssClass="form-control" size="100%" placeholder="automatique" label="Longitude" labelposition="top" labelSeparator=""/>
-					
-					</div>
-				    </div>
-				     -->
-				     
+									     
 				    <s:hidden name="latitude" id="lat" value=""/>
 				    <s:hidden name="longitude" id="lon" value=""/>
 				    
 				    
-				    
+				    <!-- 
 				    <label for="hiddenfile">Image&nbsp;&nbsp;&nbsp;&nbsp;</label><br>
 					<s:file id="hiddenfile" style="display:none" name="file" onChange="getvalue();"/>
 					<div class="btn btn-default"  onclick="getfile();" width="100%">
 						<input type="button" class="btn btn-sm btn-primary" value="Parcourir..." onclick="getfile();"/>&nbsp;
 						<span id="selectedfile">
-							Aucun fichier
+							Not Implemented Yet!
 						</span>
 					</div>
 				    <br><br><br>
+				    -->
 				    
 				    <!-- 
 				    <label for="area_descr">Image</label><br>
