@@ -99,8 +99,7 @@ public class AlerteDAO {
 	public static String deleteAlerte(Alerte alerte) {
 		Key key = KeyFactory.createKey("AlerteId", alerte.getId());
 		Util.deleteEntity(key);
-		BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-		blobstoreService.delete(new BlobKey(alerte.getImage()));
+		LikeDAO.deleteLikeWithAlerteId(alerte.getId());
 		return "Alert deleted successfully";
 	}
 
@@ -162,6 +161,7 @@ public class AlerteDAO {
 	public static String deleteAlerteWithId(int alerteId) {
 		Key key = KeyFactory.createKey("AlerteId", alerteId);
 		Util.deleteEntity(key);
+		LikeDAO.deleteLikeWithAlerteId(alerteId);
 		return "Alert deleted successfully";		
 	}
 	

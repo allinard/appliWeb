@@ -1,7 +1,5 @@
 package com.nantalertes.bean;
 
-import java.util.GregorianCalendar;
-
 /**
  * Bean représentant une Alerte
  * @author alexis
