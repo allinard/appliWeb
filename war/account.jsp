@@ -141,17 +141,16 @@
 				
 				  <!-- Table -->
 				  <table class="table">
+				  <s:iterator value="listeAbonnements" var="abonnement">
 			  		<tr>
 			  			<td>
-			  				Boulevard Michelet, NANTES
+							<s:property value='adresse'/>
 			  			</td>
 			  			<td>
-			  				2/03/2014
-			  			</td>
-			  			<td>
-			  				<span class="glyphicon glyphicon-remove"></span>
+			  				<span class="glyphicon glyphicon-remove" onclick="window.location.href='/account.action?abonnementId=<s:property value="id"/>'"></span>
 			  			</td>
 			  		</tr>
+			  		</s:iterator>
 				  </table>
 				</div>
 								

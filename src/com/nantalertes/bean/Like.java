@@ -1,6 +1,6 @@
 package com.nantalertes.bean;
 
-public class Like {
+public class Like implements Comparable<Like>{
 	
 	private int id;
 	
@@ -43,6 +43,12 @@ public class Like {
 
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+
+	@Override
+	public int compareTo(Like o) {
+		return o.getId()-this.getId();
 	}
 
 }

@@ -1,6 +1,6 @@
 package com.nantalertes.bean;
 
-public class Abonnement {
+public class Abonnement implements Comparable<Abonnement>{
 	
 	private int id;
 	
@@ -43,6 +43,12 @@ public class Abonnement {
 
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+
+	@Override
+	public int compareTo(Abonnement arg0) {
+		return arg0.getId()-this.getId();
 	}
 
 }

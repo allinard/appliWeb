@@ -180,5 +180,20 @@ public class AlerteDAO {
 		
 		return plusGrand+1;
 	}
+	
+	
+	public static Iterable<Entity> getByAdresse(String adresse) {
+		return Util.listEntities("AlerteId", "AlerteAdresse", adresse);
+	}
+
+	public static List<Alerte> getAlerteByAdresse(String adresse) {
+		List<Alerte> listeAlerte = new ArrayList<Alerte>();
+		Set<Alerte> tempListe = new TreeSet<Alerte>();
+		for (Entity entity : getByAdresse(adresse)) {
+			tempListe.add(getAlerte(entity));
+		}
+		listeAlerte.addAll(tempListe);
+		return listeAlerte;
+	}
 
 }
