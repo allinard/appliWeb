@@ -46,6 +46,12 @@ public class AccountAction extends ActionSupport {
 		
 		setListeAbonnements(AbonnementDAO.getAbonnementsByUser(user.toString()));
 
+		try {
+			Thread.sleep(250);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		
 		return "success";
 	}
 
