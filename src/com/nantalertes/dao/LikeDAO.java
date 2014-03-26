@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.labs.repackaged.com.google.common.primitives.Ints;
 import com.nantalertes.bean.Like;
 
 public class LikeDAO {
@@ -71,7 +72,14 @@ public class LikeDAO {
 	
 	
 	public static void deleteLikeWithAlerteId(int alerteId){
-		List<Like> likes = getLikesByAlerteId(alerteId);
+		//TODO comprendre pk ça ne marche pas la requete
+		//List<Like> likes = getLikesByAlerteId(alerteId);
+		List<Like> likes = new ArrayList<Like>();
+		for(Like like : LikeDAO.getAllLikes()){
+			if(like.getAlerteId()==alerteId){
+				likes.add(like);
+			}
+		}
 		for(Like like : likes){
 			deleteLike(like);
 		}
@@ -81,7 +89,7 @@ public class LikeDAO {
 	public static Like getLike(Entity e) {
 		Like like = new Like();
 		like.setId((int) e.getKey().getId());
-		like.setAlerteId((int) e.getProperty("LikeAlerteId"));
+		like.setAlerteId(Ints.checkedCast((long) e.getProperty("LikeAlerteId")));
 		like.setUser((String) e.getProperty("LikeUser"));
 
 		return like;

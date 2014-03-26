@@ -105,6 +105,7 @@ public class Util {
   	  q.addFilter(searchBy, FilterOperator.EQUAL, searchFor);
   	}
   	PreparedQuery pq = datastore.prepare(q);
+  	logger.log(Level.INFO, "REQUEST"+q.toString());
   	return pq.asIterable();
   }
   

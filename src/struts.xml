@@ -45,6 +45,11 @@
 		<action name="about" class="com.nantalertes.action.AboutAction">
 			<result name="success">about.jsp</result>
 		</action>
+		<action name="like" class="com.nantalertes.action.LikeAction">
+			<result name="liste" type="redirectAction">liste</result>
+			<result name="add" type="redirectAction">add</result>
+			<result name="map" type="redirectAction">map</result>
+		</action>
 	</package>
 
 </struts>

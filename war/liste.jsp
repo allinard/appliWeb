@@ -41,6 +41,7 @@
 			<%
 			UserService userService = UserServiceFactory.getUserService();
 			User user = userService.getCurrentUser();
+			//User user = new User("al.linardo@gmail.com", "gmail");
 			%>
 		
 	map = new OpenLayers.Map({
@@ -89,9 +90,14 @@
 				  popup_footer='<a href="/delete.action?alerteId=<%=alerte.getId()%>" style="color:grey;"><span class="glyphicon glyphicon-remove"></span>&nbsp;Supprimer</a>';
 				  <%
 			  }
+			  else if(alerte.isLikable()){
+				  pathMarker="img/marker.png"; %>
+				  popup_footer='<a href="/like.action?alerteId=<%=alerte.getId()%>&forward=liste" style="color:grey;"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Je confirme</a>';
+				  <%
+			  }
 			  else{
 				  pathMarker="img/marker.png"; %>
-				  popup_footer ='<a href="#" style="color:grey;"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Je confirme</a>';
+				  popup_footer='';
 				  <%
 			  }
 		  }
@@ -102,7 +108,7 @@
 		  }
 		  %>
 		  
-	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span> 2</span>';
+	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span><%=alerte.getLikeCount()%></span>';
 	 var feature = new OpenLayers.Feature.Vector(
 	      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
 	      {description:'<center><strong><%=alerte.getType()%>&nbsp;</strong><span style="color:DarkRed;cursor:pointer;" class="pull-right" onclick="destroyPopup(lastFeature);">&times;</span><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%><br><br>'+popup_footer} ,

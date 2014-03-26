@@ -58,6 +58,16 @@ public class Alerte implements Comparable<Alerte>{
 	private String image;
 	
 	/**
+	 * Count of Likes
+	 */
+	private int likeCount;
+	
+	/**
+	 * Say if a user can like the alert
+	 */
+	private boolean likable;
+	
+	/**
 	 * Constructeur de l'alerte
 	 */
 	public Alerte() {
@@ -214,6 +224,22 @@ public class Alerte implements Comparable<Alerte>{
 
 	public void setImage(String image) {
 		this.image = image;
+	}
+
+	public int getLikeCount() {
+		return likeCount;
+	}
+
+	public void setLikeCount(int likeCount) {
+		this.likeCount = likeCount;
+	}
+
+	public boolean isLikable() {
+		return likable;
+	}
+
+	public void setLikable(boolean likable) {
+		this.likable = likable;
 	}
 
 }

@@ -85,28 +85,33 @@
   <%
   List<Alerte> listeAlertes = (List<Alerte>) request.getAttribute("listeAlertes");
 	  String pathMarker;
-  for(Alerte alerte : listeAlertes){
-	  if(null!=user){
-		  if(alerte.getUser().toString().equals(user.toString())){
-			  pathMarker="img/marker2.png";%>
-			  popup_footer='<a href="/delete.action?alerteId=<%=alerte.getId()%>" style="color:grey;"><span class="glyphicon glyphicon-remove"></span>&nbsp;Supprimer</a>';
-			  <%
+	  for(Alerte alerte : listeAlertes){
+		  if(null!=user){
+			  if(alerte.getUser().toString().equals(user.toString())){
+				  pathMarker="img/marker2.png";%>
+				  popup_footer='<a href="/delete.action?alerteId=<%=alerte.getId()%>" style="color:grey;"><span class="glyphicon glyphicon-remove"></span>&nbsp;Supprimer</a>';
+				  <%
+			  }
+			  else if(alerte.isLikable()){
+				  pathMarker="img/marker.png"; %>
+				  popup_footer='<a href="/like.action?alerteId=<%=alerte.getId()%>&forward=map" style="color:grey;"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Je confirme</a>';
+				  <%
+			  }
+			  else{
+				  pathMarker="img/marker.png"; %>
+				  popup_footer='';
+				  <%
+			  }
 		  }
 		  else{
 			  pathMarker="img/marker.png"; %>
-			  popup_footer ='<a href="#" style="color:grey;"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;Je confirme</a>';
+			  popup_footer='';
 			  <%
 		  }
-	  }
-	  else{
-		  pathMarker="img/marker.png"; %>
-		  popup_footer='';
-		  <%
-	  }
-	  %>
-	  
- popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span> 2</span>';
- var feature = new OpenLayers.Feature.Vector(
+		  %>
+		  
+	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span><%=alerte.getLikeCount()%></span>';
+	 var feature = new OpenLayers.Feature.Vector(
       new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
       {description:'<center><strong><%=alerte.getType()%>&nbsp;</strong><span style="color:DarkRed;cursor:pointer;" class="pull-right" onclick="destroyPopup(lastFeature);">&times;</span><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%><br><br>'+popup_footer} ,
       {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }
