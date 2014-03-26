@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cronentries>
+  <cron>
+      <url>/mail.action</url>
+      <description>Envoi de mail aux abonnes</description>
+      <schedule>every day 05:00</schedule>
+      <timezone>Europe/Paris</timezone>
+  </cron>
+</cronentries>
