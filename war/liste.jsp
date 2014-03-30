@@ -97,18 +97,25 @@
 			  }
 			  else{
 				  pathMarker="img/marker.png"; %>
-				  popup_footer='';
+				  popup_footer='<span style="color:#428BCA;"><span class="glyphicon glyphicon-ok"></span>&nbsp;alerte confirmée</span>';
 				  <%
 			  }
 		  }
 		  else{
 			  pathMarker="img/marker.png"; %>
-			  popup_footer='';
+			  popup_footer='&nbsp;';
 			  <%
 		  }
 		  %>
+		  var color;
+		  if(<%=alerte.getLikeCount()%>==0){
+			  color = "grey";
+		  }
+		  else{
+			  color = "#428BCA";
+		  }
 		  
-	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span><%=alerte.getLikeCount()%></span>';
+	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:'+color+';"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;<%=alerte.getLikeCount()%></span>';
 	 var feature = new OpenLayers.Feature.Vector(
 	      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
 	      {description:'<center><strong><%=alerte.getType()%>&nbsp;</strong><span style="color:DarkRed;cursor:pointer;" class="pull-right" onclick="destroyPopup(lastFeature);">&times;</span><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%><br><br>'+popup_footer} ,
@@ -278,6 +285,15 @@ vectorLayer.addFeatures(feature);
 	   				</s:elseif>
 	   				<s:elseif test="#alerte.type == 'Chaussée endommagée'">
 	   					<span style="color:#115077;" class="glyphicon glyphicon-road">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Eclairage public défaillant'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-flash">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Problèmes de signalisation'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Arrêt déterioré (Bus/Tram)'">
+	   					<span class="glyphicon"><img src="img/tan.png" height="14"/>&nbsp;</span>
 	   				</s:elseif>
 	   				<s:else>
 						 <span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>		

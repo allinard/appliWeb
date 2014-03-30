@@ -116,19 +116,26 @@
 			  }
 			  else{
 				  pathMarker="img/marker.png"; %>
-				  popup_footer='';
+				  popup_footer='<span style="color:#428BCA;"><span class="glyphicon glyphicon-ok"></span>&nbsp;alerte confirmée</span>';
 				  <%
 			  }
 		  }
 		  else{
 			  pathMarker="img/marker.png"; %>
-			  popup_footer='';
+			  popup_footer='&nbsp;';
 			  <%
 		  }
 		  %>
+		  var color;
+		  if(<%=alerte.getLikeCount()%>==0){
+			  color = "grey";
+		  }
+		  else{
+			  color = "#428BCA";
+		  }
 		  
-	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:#428BCA;"><span class="glyphicon glyphicon-thumbs-up"></span><%=alerte.getLikeCount()%></span>';
-	  	 var feature = new OpenLayers.Feature.Vector(
+	 popup_footer=popup_footer+'<span class="badge pull-right" style="background-color:'+color+';"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;<%=alerte.getLikeCount()%></span>';
+	 var feature = new OpenLayers.Feature.Vector(
   	      new OpenLayers.Geometry.Point(<%=alerte.getLongitude()%>,<%=alerte.getLatitude()%>).transform(epsg4326, projectTo),
   	      {description:'<center><strong><%=alerte.getType()%>&nbsp;</strong><span style="color:DarkRed;cursor:pointer;" class="pull-right" onclick="destroyPopup(lastFeature);">&times;</span><br><i><%=alerte.getAdresse()%></i></center><br>Posté <%=alerte.getDate()%><br><b>Description : </b><%=alerte.getDescription()%><br><br>'+popup_footer} ,
   	      {externalGraphic: '<%=pathMarker%>', graphicHeight: 70, graphicWidth: 70, graphicXOffset:-35, graphicYOffset:-70  }

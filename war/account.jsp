@@ -147,7 +147,7 @@
 							<s:property value='adresse'/>
 			  			</td>
 			  			<td>
-			  				<span class="glyphicon glyphicon-remove" onclick="window.location.href='/account.action?abonnementId=<s:property value="id"/>'"></span>
+			  				<span class="glyphicon glyphicon-remove" style="cursor:pointer;" onclick="window.location.href='/account.action?abonnementId=<s:property value="id"/>'"></span>
 			  			</td>
 			  		</tr>
 			  		</s:iterator>
