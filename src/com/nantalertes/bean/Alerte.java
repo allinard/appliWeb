@@ -2,46 +2,47 @@ package com.nantalertes.bean;
 
 /**
  * Bean représentant une Alerte
+ * 
  * @author alexis
- *
+ * 
  */
-public class Alerte implements Comparable<Alerte>{
+public class Alerte implements Comparable<Alerte> {
 
 	/**
 	 * Description de l'alerte
 	 */
 	private String description;
-	
+
 	/**
 	 * Type de l'alerte (bus, panneau, dechets...)
 	 */
 	private String type;
-	
+
 	/**
 	 * Adresse de l'alerte
 	 */
 	private String adresse;
-	
+
 	/**
 	 * Latitude de l'alerte
 	 */
 	private String latitude;
-	
+
 	/**
 	 * Longitude de l'alerte
 	 */
 	private String longitude;
-	
+
 	/**
 	 * Date de l'alerte
 	 */
 	private String date;
-	
+
 	/**
 	 * Utilisateur ayant posté l'alerte
 	 */
 	private String user;
-	
+
 	/**
 	 * ID de l'alerte
 	 */
@@ -51,31 +52,32 @@ public class Alerte implements Comparable<Alerte>{
 	 * Flag si une alerte peut être supprimée ou non
 	 */
 	private boolean removable;
-	
+
 	/**
 	 * key de l'image uploadée
 	 */
 	private String image;
-	
+
 	/**
 	 * Count of Likes
 	 */
 	private int likeCount;
-	
+
 	/**
 	 * Say if a user can like the alert
 	 */
 	private boolean likable;
-	
+
 	/**
 	 * Constructeur de l'alerte
 	 */
 	public Alerte() {
-
+		this.likeCount=-1;
 	}
 
 	/**
 	 * Description de l'alerte
+	 * 
 	 * @return la description
 	 */
 	public String getDescription() {
@@ -84,6 +86,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Description de l'alerte
+	 * 
 	 * @param description
 	 */
 	public void setDescription(String description) {
@@ -92,6 +95,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Type de l'alerte
+	 * 
 	 * @return le type
 	 */
 	public String getType() {
@@ -100,6 +104,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Type de l'alerte
+	 * 
 	 * @param type
 	 */
 	public void setType(String type) {
@@ -108,6 +113,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Adresse de l'alerte
+	 * 
 	 * @return l'adresse
 	 */
 	public String getAdresse() {
@@ -116,6 +122,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Adresse de l'alerte
+	 * 
 	 * @param adresse
 	 */
 	public void setAdresse(String adresse) {
@@ -124,6 +131,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Latitude de l'alerte
+	 * 
 	 * @return la latitude
 	 */
 	public String getLatitude() {
@@ -132,6 +140,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Latitude de l'alerte
+	 * 
 	 * @param latitude
 	 */
 	public void setLatitude(String latitude) {
@@ -140,6 +149,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Longitude de l'alerte
+	 * 
 	 * @return longitude
 	 */
 	public String getLongitude() {
@@ -148,6 +158,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Longitude de l'alerte
+	 * 
 	 * @param longitude
 	 */
 	public void setLongitude(String longitude) {
@@ -156,6 +167,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Date de l'alerte
+	 * 
 	 * @return la date
 	 */
 	public String getDate() {
@@ -164,6 +176,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Date de l'alerte
+	 * 
 	 * @param date
 	 */
 	public void setDate(String date) {
@@ -172,6 +185,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Utilisateur ayant posté l'alerte
+	 * 
 	 * @return l'utilisateur
 	 */
 	public String getUser() {
@@ -180,6 +194,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Utilisateur de l'alerte
+	 * 
 	 * @param user
 	 */
 	public void setUser(String user) {
@@ -188,6 +203,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * ID de l'alerte
+	 * 
 	 * @return id
 	 */
 	public int getId() {
@@ -196,6 +212,7 @@ public class Alerte implements Comparable<Alerte>{
 
 	/**
 	 * Id de l'alerte
+	 * 
 	 * @param id
 	 */
 	public void setId(int id) {
@@ -207,7 +224,11 @@ public class Alerte implements Comparable<Alerte>{
 	 */
 	@Override
 	public int compareTo(Alerte o) {
-		return o.getId()-this.getId();
+		if (-1 != likeCount) {
+			return o.getLikeCount() - this.getLikeCount();
+		} else {
+			return o.getId() - this.getId();
+		}
 	}
 
 	public boolean isRemovable() {

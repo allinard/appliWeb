@@ -2,6 +2,8 @@ package com.nantalertes.action;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,6 +24,8 @@ import com.google.appengine.api.users.UserServiceFactory;
  */
 public class ListeAction extends ActionSupport {
 	private List<Alerte> listeAlertes;
+	
+	private List<Alerte> top5Alertes;
 
 	private User user;
 
@@ -33,6 +37,8 @@ public class ListeAction extends ActionSupport {
 		//user = new User("al.linardo@gmail.com", "gmail");
 
 		listeAlertes = AlerteDAO.getAllAlertes();
+		
+		top5Alertes = new ArrayList<Alerte>();
 		
 		for (Alerte alerte : listeAlertes) {
 			
@@ -69,11 +75,20 @@ public class ListeAction extends ActionSupport {
 					}
 				}
 			}
-			
-			
-			
 		}
 
+		Set<Alerte> setTop5 = new TreeSet<Alerte>();
+		setTop5.addAll(listeAlertes);
+		
+		int count = 0;
+		for(Alerte alerte : setTop5){
+			top5Alertes.add(alerte);
+			if(count>4){
+				break;
+			}
+			count++;
+		}
+		
 		return "success";
 	}
 
@@ -92,5 +107,13 @@ public class ListeAction extends ActionSupport {
 
 	public void setUser(User u) {
 		user = u;
+	}
+
+	public List<Alerte> getTop5Alertes() {
+		return top5Alertes;
+	}
+
+	public void setTop5Alertes(List<Alerte> top5Alertes) {
+		this.top5Alertes = top5Alertes;
 	}
 }

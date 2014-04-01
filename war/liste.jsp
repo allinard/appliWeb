@@ -257,6 +257,65 @@ vectorLayer.addFeatures(feature);
       <div class="row">
         <div id="sidebar" style="box-shadow: 5px 5px 8px #aaa;" class="col-sm-6 col-md-4 sidebar">
 			
+			
+			
+			<ul class="nav nav-sidebar">
+            <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Top 5 des Alertes</strong></h4></a></li>
+          </ul>
+          <ul class="nav nav-sidebar" id="scroll_liste">
+            <s:set name="testsListeAlertes" value="top5Alertes"/>
+            <s:if test="%{#testsListeAlertes.isEmpty()}">
+            	<li><center><span style="color:#115077;"><strong><i>Pas d'alertes signalées en cours</i></strong></span></center></li>
+            </s:if>
+            <s:else>
+			    <s:iterator value="top5Alertes" var="alerte">
+			    	<li><a href="#" name=<s:property value='id'/> onclick="feat=getFeature(map.layers[1].features, this.attributes['name'].value);centerMap(feat);createPopup(feat);">
+			    	<s:if test="#alerte.removable">
+			    		<span style="color:#115077;" class="glyphicon glyphicon-remove" onclick="window.location.href='/delete.action?alerteId=<s:property value="id"/>'">&nbsp;&nbsp;</span>
+			    	</s:if>
+			    	<s:else>
+			    		<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+			    	</s:else>
+				    <s:if test="#alerte.type == 'Innondation'">
+				    	<span style="color:#115077;" class="glyphicon glyphicon-tint">&nbsp;</span>
+	   				</s:if>
+	   				<s:elseif test="#alerte.type == 'Déchets'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-trash">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Tags/Graffitis'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-pencil">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Chaussée endommagée'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-road">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Eclairage public défaillant'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-flash">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Problèmes de signalisation'">
+	   					<span style="color:#115077;" class="glyphicon glyphicon-warning-sign">&nbsp;</span>
+	   				</s:elseif>
+	   				<s:elseif test="#alerte.type == 'Arrêt déterioré (Bus/Tram)'">
+	   					<span class="glyphicon"><img src="img/tan.png" height="14"/>&nbsp;</span>
+	   				</s:elseif>
+	   				<s:else>
+						 <span style="color:#115077;" class="glyphicon glyphicon-exclamation-sign">&nbsp;</span>		
+	   				</s:else>
+	   				<s:property value="type"/> - <i><s:property value="adresse"/></i>
+	   				</a></li>
+				</s:iterator>            
+            </s:else>
+		  </ul>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
           <ul class="nav nav-sidebar">
             <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Liste des Alertes</strong></h4></a></li>
           </ul>
