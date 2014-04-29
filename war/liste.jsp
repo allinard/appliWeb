@@ -259,11 +259,17 @@ vectorLayer.addFeatures(feature);
 			
 			
 			
-			<ul class="nav nav-sidebar">
-            <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Top 5 des Alertes</strong></h4></a></li>
+		  <ul class="nav nav-sidebar">
+            <li class="active active2" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Les Alertes</strong></h4></a></li>
           </ul>
-          <ul class="nav nav-sidebar" id="scroll_liste">
-            <s:set name="testsListeAlertes" value="top5Alertes"/>
+          <ul class="nav nav-tabs" style="margin-top:-10px;">
+			  <li><a href="#top5" data-toggle="tab"><span class="glyphicon glyphicon-thumbs-up"></span>&nbsp;&nbsp;Top Alertes</a></li>
+			  <li class="active"><a href="#liste" data-toggle="tab"><span class="glyphicon glyphicon-th-list"></span>&nbsp;&nbsp;Liste</a></li>
+		  </ul>
+		  
+		  <div class="tab-content" style="height:82%;overflow-y:auto;overflow-x:hidden;">
+		   <ul class="tab-pane fade active in nav nav-sidebar" id="top5">
+		    <s:set name="testsListeAlertes" value="top5Alertes"/>
             <s:if test="%{#testsListeAlertes.isEmpty()}">
             	<li><center><span style="color:#115077;"><strong><i>Pas d'alertes signalées en cours</i></strong></span></center></li>
             </s:if>
@@ -305,22 +311,9 @@ vectorLayer.addFeatures(feature);
 				</s:iterator>            
             </s:else>
 		  </ul>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-          <ul class="nav nav-sidebar">
-            <li class="active" style="box-shadow: 8px 8px 8px #bbb;"><a href="#"><h4><strong>Liste des Alertes</strong></h4></a></li>
-          </ul>
-          <ul class="nav nav-sidebar" id="scroll_liste">
-            <s:set name="testsListeAlertes" value="listeAlertes"/>
+		  
+		  <ul class="tab-pane fade nav nav-sidebar" id="liste">
+			<s:set name="testsListeAlertes" value="listeAlertes"/>
             <s:if test="%{#testsListeAlertes.isEmpty()}">
             	<li><center><span style="color:#115077;"><strong><i>Pas d'alertes signalées en cours</i></strong></span></center></li>
             </s:if>
@@ -362,8 +355,11 @@ vectorLayer.addFeatures(feature);
 				</s:iterator>            
             </s:else>
 		  </ul>
+		</div>
         </div>
 
+
+				
 		
         <div id="basicMap" style="overflow:hidden; padding: 0px; margin-left: 25%px;" class="col-sm-6 col-sm-offset-6 col-md-8 col-md-offset-4 main">
 
